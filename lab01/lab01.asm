@@ -1,7 +1,7 @@
-; Write a program in 8086 assembly to
-; 1) Read in input a short text of 4 lines, each of these lines long from 20 to 50 characters
-; 2) Count number of occurrences of the letters
-; 3) Apply a cryptographic algorithm
+; Write a program in 8086 assembly to:
+; 1) read in input a short text of 4 lines, each of these lines long from 20 to 50 characters;
+; 2) count number of occurrences of the letters;
+; 3) apply a cryptographic algorithm.
 
 	.model small
 	.stack
