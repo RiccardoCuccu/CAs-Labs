@@ -1,5 +1,5 @@
-# CAs-Lab-01
-Lab 01 of the course Computer Architectures 2019.<br/>
+# CAs Lab 01
+Laboratory 01 of the course Computer Architectures 2019.<br/>
 Tested with EMU8086 version 4.08
 
 ## Read in input a short text of 4 lines, each of these lines long from 20 to 50 characters
@@ -13,7 +13,7 @@ Reading stops when one of this conditions is satisfied:
 - After at least 20 characters, an `ENTER` has been read.
 - 50 characters have been read without any `ENTER`, after the first 20 characters.<br/>
 
-The ENTER character corresponds to 13 in ASCII table.<br/>
+The `ENTER` character corresponds to 13 in ASCII table.<br/>
 PLEASE NOTE: if you read an `ENTER` in the first 20 characters, the reading must continue.
 
 ## Count number of occurrences of the letters
