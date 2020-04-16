@@ -6,9 +6,9 @@
 	.model small
 	.stack
 	
-	dim1	EQU		20
-	dim2	EQU		30
-	dim3	EQU		50
+	dim1		EQU		20
+	dim2		EQU		30
+	dim3		EQU		50
 	k1		EQU		1
 	k2		EQU		2
 	k3		EQU		3
@@ -45,30 +45,30 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 		
-store_char proc near		        ; STORE CHARACTERS
+store_char proc near				; STORE CHARACTERS
 		push DI
-		mov CX, dim1                ; store in CX 20
-		mov BX, dim2                ; store in BX 30
-		mov AH, 1                   ; reading
+		mov CX, dim1			; store in CX 20
+		mov BX, dim2			; store in BX 30
+		mov AH, 1			; reading
 store1: 
-		int 21H                     ; interrupt
-		mov [DI], AL                ; save character
-		inc DI                      ; increment index
-		dec CX                      ; decrement CX
-		cmp CX, 0                   ; check if it is the 20th character
-		jne store1                  ; if CX is not zero go to "store1"
-		mov CL, 13                  ; store in CL the ascii code of ENTER
-		cmp [DI-1], CL              ; check if the twentieth character is ENTER
-		je store3                   ; if the character is ENTER go to "store3"
+		int 21H				; interrupt
+		mov [DI], AL			; save character
+		inc DI				; increment index
+		dec CX				; decrement CX
+		cmp CX, 0			; check if it is the 20th character
+		jne store1			; if CX is not zero go to "store1"
+		mov CL, 13			; store in CL the ascii code of ENTER
+		cmp [DI-1], CL			; check if the twentieth character is ENTER
+		je store3			; if the character is ENTER go to "store3"
 store2: 
-		int 21H                     ; interrupt
-		mov [DI], AL                ; save character
-		inc DI                      ; increment index
-		dec BX                      ; decrement BX
-		cmp [DI-1], CL              ; check if the character is ENTER
-		je store3                   ; if the character is ENTER go to "store3"
-		cmp BX, 0                   ; check if it is the 50th character
-		jne store2	                ; if BX is not zero go to "store2"
+		int 21H				; interrupt
+		mov [DI], AL			; save character
+		inc DI				; increment index
+		dec BX				; decrement BX
+		cmp [DI-1], CL			; check if the character is ENTER
+		je store3			; if the character is ENTER go to "store3"
+		cmp BX, 0			; check if it is the 50th character
+		jne store2			; if BX is not zero go to "store2"
 store3:	
 		call back
 		pop DI
@@ -77,64 +77,64 @@ store_char endp
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-print_char proc near                ; PRINT CHARACTERS
+print_char proc near				; PRINT CHARACTERS
 		push DI
-		mov CX, dim3                ; store in BX 50
-		sub CX, BX                  ; calculates the number of characters entered
-		mov AH, 2                   ; writing
+		mov CX, dim3			; store in BX 50
+		sub CX, BX			; calculates the number of characters entered
+		mov AH, 2			; writing
 printl2:
-		mov DL, [DI]                ; load character
-		int 21H                     ; interrupt
-		inc DI                      ; increment index
-		dec CX                      ; decrement CX
-		cmp CX, 0                   ; check if it is the last character
-		jne printl2	                ; if CX is not zero go to "printl2"
-		call back                   ; new line
+		mov DL, [DI]			; load character
+		int 21H				; interrupt
+		inc DI				; increment index
+		dec CX				; decrement CX
+		cmp CX, 0			; check if it is the last character
+		jne printl2			; if CX is not zero go to "printl2"
+		call back			; new line
 		pop DI
 		ret
 print_char endp
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-count proc near                     ; COUNT CHARACTERS
+count proc near					; COUNT CHARACTERS
 		push DI
 		push BX
 		push CX
 		push DX
 		
-		lea DX, MSG5            	; "Calcolo delle occorrenze in corso"
-		call prints         		; print string
+		lea DX, MSG5			; "Calcolo delle occorrenze in corso"
+		call prints			; print string
 		
 		mov BH, 0
-		mov CX, dim3                ; store in CX 50
-		sub CX, BX                  ; calculates the number of characters entered
+		mov CX, dim3			; store in CX 50
+		sub CX, BX			; calculates the number of characters entered
 		
 count0:
-		cmp [DI], 65                ; check if the ASCII code is greater than 65
-		jl count99                  ; if it is lower go to "count99"
-		cmp [DI], 122               ; check if the ASCII code is lower than 122
-		jg count99                  ; if it is greater go to "count99"
-		cmp [DI], 90                ; check if the ASCII code is lower than 90
-		jle count1                  ; if it is lower go to "count1" because it is an uppercase
-		cmp [DI], 97                ; check if the ASCII code is greater than 97
-		jge count2                  ; if it is greater go to "count2" because it is a lowercase
-		jmp count99                 ; in any other case it is not a letter, than go to "count99"
+		cmp [DI], 65			; check if the ASCII code is greater than 65
+		jl count99			; if it is lower go to "count99"
+		cmp [DI], 122			; check if the ASCII code is lower than 122
+		jg count99			; if it is greater go to "count99"
+		cmp [DI], 90			; check if the ASCII code is lower than 90
+		jle count1			; if it is lower go to "count1" because it is an uppercase
+		cmp [DI], 97			; check if the ASCII code is greater than 97
+		jge count2			; if it is greater go to "count2" because it is a lowercase
+		jmp count99			; in any other case it is not a letter, than go to "count99"
 count1:	
 		mov BL, [DI]
-		sub BL, 65                  ; convert the ASCII code of the uppercase to the position within the vector
+		sub BL, 65			; convert the ASCII code of the uppercase to the position within the vector
 		inc upper_char[BX]
 		jmp count99
 count2: 
 		mov BL, [DI]
-		sub BL, 97                  ; convert the ASCII code of the lowercase to the position within the vector 
+		sub BL, 97			; convert the ASCII code of the lowercase to the position within the vector 
 		inc lower_char[BX]
 		;jmp count99
 				
 count99:
-		inc DI                      ; increment index
-		dec CX                      ; decrement counter
-		cmp CX, 0                   ; check if it is the last character
-		jne count0	                ; if CX is not zero go to "count0" 
+		inc DI				; increment index
+		dec CX				; decrement counter
+		cmp CX, 0			; check if it is the last character
+		jne count0			; if CX is not zero go to "count0" 
 		
 		pop DX
 		pop CX
@@ -145,16 +145,16 @@ count endp
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-print_max proc near                 ; PRINT MAX CHARACTER
+print_max proc near				; PRINT MAX CHARACTER
 		push AX
 		push BX
 		push DX
 		push DI
 		
-		call max_char               ; AL=number of occurrence ; BX=index of character
+		call max_char			; AL=number of occurrence ; BX=index of character
 		
-		lea DX, MSG6            	; "Carattere con MAX numero di occorrenze"
-		call prints         		; print string
+		lea DX, MSG6			; "Carattere con MAX numero di occorrenze"
+		call prints			; print string
 
 upper_test:
 		lea DI, upper_char          ; load effective address of upper_char
