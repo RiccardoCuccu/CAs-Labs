@@ -1,76 +1,76 @@
 ;Write a program in 8086 assembly for multiplying two matrices whose elements are signed numbers expressed with one byte.
 
-		.MODEL small
-		.STACK
+	.MODEL small
+	.STACK
 
-LF      EQU     10              	; line feed
-CR      EQU     13              	; carriage return
-POINT   EQU     '.'	
+	LF	EQU	10			; line feed
+	CR	EQU	13			; carriage return
+	POINT	EQU	'.'
 
-;N       EQU     3              	 ; rows MAT_A
-;M       EQU     4              	 ; columns MAT_A and rows MAT_B
-;P       EQU     2              	 ; columns MAT_B
-N       EQU     4               	; rows MAT_A
-M       EQU     7               	; columns MAT_A and rows MAT_B
-P       EQU     5               	; columns MAT_B
-NM      EQU     N*M
-MP      EQU     M*P
-NP      EQU     N*P
+	;N	EQU	3			; rows MAT_A
+	;M	EQU	4			; columns MAT_A and rows MAT_B
+	;P	EQU	2			; columns MAT_B
+	N	EQU	4			; rows MAT_A
+	M	EQU	7			; columns MAT_A and rows MAT_B
+	P	EQU	5			; columns MAT_B
+	NM	EQU	N*M
+	MP	EQU	M*P
+	NP	EQU	N*P
 
-		.DATA
-				
-MSGS    DB      "Programma avviato", CR, LF, "$"
-MSGE    DB      "Programma terminato", CR, LF, "$"
-MSG1    DB      CR, LF, "$"
-MSG2    DB      "Calcolo della matrice C in corso", "$"
-MSGA    DB      "Matrice A:", CR, LF, "$"
-MSGB    DB      "Matrice B:", CR, LF, "$"
-MSGC    DB      "Matrice C:", CR, LF, "$"
-	
-;MAT_A   DB       4,  -3,  5,   1     	; matrix A
-;        DB       3,  -5,  0,  11
-;        DB      -5,  12,  4,  -5
-				
-;MAT_B   DB      -2,   3              	; matrix B
-;        DB       5,  -1  
-;        DB       4,   3
-;        DB       9,  -7
+	.DATA
 
-MAT_A   DB          3, 14, -15,    9, 26, -53,  5     ; matrix A
-		DB         89, 79,   3,   23, 84,  -6, 26
-		DB         43, -3,  83,   27, -9,  50, 28
-		DB        -88, 41,  97, -103, 69,  39, -9
-				
-MAT_B   DB        37, -101,   0,  58, -20              ; matrix B
-		DB         9,   74,  94,  -4,  59  
-		DB       -23,   90, -78,  16,  -4
-		DB         0,  -62,  86,  20,  89
-		DB         9,   86,  28,   0, -34
-		DB        82,    5,  34, -21,   1
-		DB        70,  -67,   9,  82,  14
+	MSGS	DB	"Programma avviato", CR, LF, "$"
+	MSGE	DB	"Programma terminato", CR, LF, "$"
+	MSG1	DB	CR, LF, "$"
+	MSG2	DB	"Calcolo della matrice C in corso", "$"
+	MSGA	DB	"Matrice A:", CR, LF, "$"
+	MSGB	DB	"Matrice B:", CR, LF, "$"
+	MSGC	DB	"Matrice C:", CR, LF, "$"
 
-MAT_C   DW      NP DUP(?)
+	;MAT_A	DB	4,   -3,  5,   1			; matrix A
+	;	DB	3,   -5,  0,  11
+	;	DB	-5,  12,  4,  -5
 
-TEMP    DW      ?
-			  
-		.CODE       
-	
+	;MAT_B	DB	-2,   3					; matrix B
+	;	DB	5,   -1
+	;	DB	4,    3
+	;	DB	9,   -7
+
+	MAT_A   DB	  3, 14, -15,    9, 26, -53,  5		; matrix A
+		DB	 89, 79,   3,   23, 84,  -6, 26
+		DB	 43, -3,  83,   27, -9,  50, 28
+		DB	-88, 41,  97, -103, 69,  39, -9
+
+	MAT_B   DB	 37, -101,   0,  58, -20		; matrix B
+		DB	  9,   74,  94,  -4,  59
+		DB	-23,   90, -78,  16,  -4
+		DB	  0,  -62,  86,  20,  89
+		DB	  9,   86,  28,   0, -34
+		DB	 82,    5,  34, -21,   1
+		DB	 70,  -67,   9,  82,  14
+
+	MAT_C   DW      NP DUP(?)
+
+	TEMP    DW      ?
+
+	.CODE
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 MUL_MAT PROC
-		PUSH    AX					; push
-		PUSH    CX					; push
-		PUSH    DI					; push
-		PUSH    SI					; push
+		PUSH	AX			; push
+		PUSH	CX			; push
+		PUSH	DI			; push
+		PUSH	SI			; push
+
+		XOR	SI, SI			; erase SI
+		XOR	DI, DI			; erase DI
+		MOV	CX, N			; move into CX the number of rows in MAT_A
 			
-		XOR     SI, SI          	; erase SI
-		XOR     DI, DI          	; erase DI
-		MOV     CX, N           	; move into CX the number of rows in MAT_A
+MATRIX:		CALL    MUL_ROW			; calculate the value of the single row
+		INC     SI			; increment index
 			
-MATRIX: CALL    MUL_ROW         	; calculate the value of the single row
-		INC     SI 					; increment index
-			
-		PUSH    DX					; push
+		PUSH    DX			; push
 		MOV     AH, 2           	; reading DL
 		MOV     DL, POINT       	; move carriage return
 		INT     21H             	; interrupt
