@@ -1,0 +1,279 @@
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html><head>
+<title>Static Call Graph - [.\Objects\ex1.axf]</title></head>
+<body><HR>
+<H1>Static Call Graph for image .\Objects\ex1.axf</H1><HR>
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Wed Feb 19 17:47:37 2020
+<BR><P>
+<H3>Maximum Stack Usage =          0 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
+Call chain for Maximum Stack Depth:</H3>
+
+<P>
+<H3>
+Functions with no stack information
+</H3><UL>
+ <LI><a href="#[30]">__user_initial_stackheap</a>
+</UL>
+</UL>
+<P>
+<H3>
+Mutually Recursive functions
+</H3> <LI><a href="#[2]">NMI_Handler</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[2]">NMI_Handler</a><BR>
+ <LI><a href="#[3]">HardFault_Handler</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[3]">HardFault_Handler</a><BR>
+ <LI><a href="#[4]">MemManage_Handler</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[4]">MemManage_Handler</a><BR>
+ <LI><a href="#[5]">BusFault_Handler</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[5]">BusFault_Handler</a><BR>
+ <LI><a href="#[6]">UsageFault_Handler</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[6]">UsageFault_Handler</a><BR>
+ <LI><a href="#[7]">SVC_Handler</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[7]">SVC_Handler</a><BR>
+ <LI><a href="#[8]">DebugMon_Handler</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[8]">DebugMon_Handler</a><BR>
+ <LI><a href="#[9]">PendSV_Handler</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[9]">PendSV_Handler</a><BR>
+ <LI><a href="#[a]">SysTick_Handler</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[a]">SysTick_Handler</a><BR>
+ <LI><a href="#[21]">ADC_IRQHandler</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[21]">ADC_IRQHandler</a><BR>
+</UL>
+<P>
+<H3>
+Function Pointers
+</H3><UL>
+ <LI><a href="#[21]">ADC_IRQHandler</a> from startup_lpc17xx.o(.text) referenced from startup_lpc17xx.o(RESET)
+ <LI><a href="#[22]">BOD_IRQHandler</a> from startup_lpc17xx.o(.text) referenced from startup_lpc17xx.o(RESET)
+ <LI><a href="#[5]">BusFault_Handler</a> from startup_lpc17xx.o(.text) referenced from startup_lpc17xx.o(RESET)
+ <LI><a href="#[2d]">CANActivity_IRQHandler</a> from startup_lpc17xx.o(.text) referenced from startup_lpc17xx.o(RESET)
+ <LI><a href="#[24]">CAN_IRQHandler</a> from startup_lpc17xx.o(.text) referenced from startup_lpc17xx.o(RESET)
+ <LI><a href="#[25]">DMA_IRQHandler</a> from startup_lpc17xx.o(.text) referenced from startup_lpc17xx.o(RESET)
+ <LI><a href="#[8]">DebugMon_Handler</a> from startup_lpc17xx.o(.text) referenced from startup_lpc17xx.o(RESET)
+ <LI><a href="#[1d]">EINT0_IRQHandler</a> from startup_lpc17xx.o(.text) referenced from startup_lpc17xx.o(RESET)
+ <LI><a href="#[1e]">EINT1_IRQHandler</a> from startup_lpc17xx.o(.text) referenced from startup_lpc17xx.o(RESET)
+ <LI><a href="#[1f]">EINT2_IRQHandler</a> from startup_lpc17xx.o(.text) referenced from startup_lpc17xx.o(RESET)
+ <LI><a href="#[20]">EINT3_IRQHandler</a> from startup_lpc17xx.o(.text) referenced from startup_lpc17xx.o(RESET)
+ <LI><a href="#[27]">ENET_IRQHandler</a> from startup_lpc17xx.o(.text) referenced from startup_lpc17xx.o(RESET)
+ <LI><a href="#[3]">HardFault_Handler</a> from startup_lpc17xx.o(.text) referenced from startup_lpc17xx.o(RESET)
+ <LI><a href="#[15]">I2C0_IRQHandler</a> from startup_lpc17xx.o(.text) referenced from startup_lpc17xx.o(RESET)
+ <LI><a href="#[16]">I2C1_IRQHandler</a> from startup_lpc17xx.o(.text) referenced from startup_lpc17xx.o(RESET)
+ <LI><a href="#[17]">I2C2_IRQHandler</a> from startup_lpc17xx.o(.text) referenced from startup_lpc17xx.o(RESET)
+ <LI><a href="#[26]">I2S_IRQHandler</a> from startup_lpc17xx.o(.text) referenced from startup_lpc17xx.o(RESET)
+ <LI><a href="#[29]">MCPWM_IRQHandler</a> from startup_lpc17xx.o(.text) referenced from startup_lpc17xx.o(RESET)
+ <LI><a href="#[4]">MemManage_Handler</a> from startup_lpc17xx.o(.text) referenced from startup_lpc17xx.o(RESET)
+ <LI><a href="#[2]">NMI_Handler</a> from startup_lpc17xx.o(.text) referenced from startup_lpc17xx.o(RESET)
+ <LI><a href="#[1b]">PLL0_IRQHandler</a> from startup_lpc17xx.o(.text) referenced from startup_lpc17xx.o(RESET)
+ <LI><a href="#[2b]">PLL1_IRQHandler</a> from startup_lpc17xx.o(.text) referenced from startup_lpc17xx.o(RESET)
+ <LI><a href="#[14]">PWM1_IRQHandler</a> from startup_lpc17xx.o(.text) referenced from startup_lpc17xx.o(RESET)
+ <LI><a href="#[9]">PendSV_Handler</a> from startup_lpc17xx.o(.text) referenced from startup_lpc17xx.o(RESET)
+ <LI><a href="#[2a]">QEI_IRQHandler</a> from startup_lpc17xx.o(.text) referenced from startup_lpc17xx.o(RESET)
+ <LI><a href="#[28]">RIT_IRQHandler</a> from startup_lpc17xx.o(.text) referenced from startup_lpc17xx.o(RESET)
+ <LI><a href="#[1c]">RTC_IRQHandler</a> from startup_lpc17xx.o(.text) referenced from startup_lpc17xx.o(RESET)
+ <LI><a href="#[2e]">Reset_Handler</a> from startup_lpc17xx.o(.text) referenced from startup_lpc17xx.o(RESET)
+ <LI><a href="#[18]">SPI_IRQHandler</a> from startup_lpc17xx.o(.text) referenced from startup_lpc17xx.o(RESET)
+ <LI><a href="#[19]">SSP0_IRQHandler</a> from startup_lpc17xx.o(.text) referenced from startup_lpc17xx.o(RESET)
+ <LI><a href="#[1a]">SSP1_IRQHandler</a> from startup_lpc17xx.o(.text) referenced from startup_lpc17xx.o(RESET)
+ <LI><a href="#[7]">SVC_Handler</a> from startup_lpc17xx.o(.text) referenced from startup_lpc17xx.o(RESET)
+ <LI><a href="#[a]">SysTick_Handler</a> from startup_lpc17xx.o(.text) referenced from startup_lpc17xx.o(RESET)
+ <LI><a href="#[c]">TIMER0_IRQHandler</a> from startup_lpc17xx.o(.text) referenced from startup_lpc17xx.o(RESET)
+ <LI><a href="#[d]">TIMER1_IRQHandler</a> from startup_lpc17xx.o(.text) referenced from startup_lpc17xx.o(RESET)
+ <LI><a href="#[e]">TIMER2_IRQHandler</a> from startup_lpc17xx.o(.text) referenced from startup_lpc17xx.o(RESET)
+ <LI><a href="#[f]">TIMER3_IRQHandler</a> from startup_lpc17xx.o(.text) referenced from startup_lpc17xx.o(RESET)
+ <LI><a href="#[10]">UART0_IRQHandler</a> from startup_lpc17xx.o(.text) referenced from startup_lpc17xx.o(RESET)
+ <LI><a href="#[11]">UART1_IRQHandler</a> from startup_lpc17xx.o(.text) referenced from startup_lpc17xx.o(RESET)
+ <LI><a href="#[12]">UART2_IRQHandler</a> from startup_lpc17xx.o(.text) referenced from startup_lpc17xx.o(RESET)
+ <LI><a href="#[13]">UART3_IRQHandler</a> from startup_lpc17xx.o(.text) referenced from startup_lpc17xx.o(RESET)
+ <LI><a href="#[2c]">USBActivity_IRQHandler</a> from startup_lpc17xx.o(.text) referenced from startup_lpc17xx.o(RESET)
+ <LI><a href="#[23]">USB_IRQHandler</a> from startup_lpc17xx.o(.text) referenced from startup_lpc17xx.o(RESET)
+ <LI><a href="#[6]">UsageFault_Handler</a> from startup_lpc17xx.o(.text) referenced from startup_lpc17xx.o(RESET)
+ <LI><a href="#[b]">WDT_IRQHandler</a> from startup_lpc17xx.o(.text) referenced from startup_lpc17xx.o(RESET)
+</UL>
+<P>
+<H3>
+Global Symbols
+</H3>
+<P><STRONG><a name="[2e]"></a>Reset_Handler</STRONG> (Thumb, 28 bytes, Stack size 0 bytes, startup_lpc17xx.o(.text))
+<BR><BR>[Calls]<UL><LI><a href="#[2f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;myUADD8
+</UL>
+
+<P><STRONG><a name="[2]"></a>NMI_Handler</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, startup_lpc17xx.o(.text))
+<BR><BR>[Calls]<UL><LI><a href="#[2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NMI_Handler
+</UL>
+<BR>[Called By]<UL><LI><a href="#[2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NMI_Handler
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> startup_lpc17xx.o(RESET)
+</UL>
+<P><STRONG><a name="[3]"></a>HardFault_Handler</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, startup_lpc17xx.o(.text))
+<BR><BR>[Calls]<UL><LI><a href="#[3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HardFault_Handler
+</UL>
+<BR>[Called By]<UL><LI><a href="#[3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HardFault_Handler
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> startup_lpc17xx.o(RESET)
+</UL>
+<P><STRONG><a name="[4]"></a>MemManage_Handler</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, startup_lpc17xx.o(.text))
+<BR><BR>[Calls]<UL><LI><a href="#[4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MemManage_Handler
+</UL>
+<BR>[Called By]<UL><LI><a href="#[4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MemManage_Handler
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> startup_lpc17xx.o(RESET)
+</UL>
+<P><STRONG><a name="[5]"></a>BusFault_Handler</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, startup_lpc17xx.o(.text))
+<BR><BR>[Calls]<UL><LI><a href="#[5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BusFault_Handler
+</UL>
+<BR>[Called By]<UL><LI><a href="#[5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BusFault_Handler
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> startup_lpc17xx.o(RESET)
+</UL>
+<P><STRONG><a name="[6]"></a>UsageFault_Handler</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, startup_lpc17xx.o(.text))
+<BR><BR>[Calls]<UL><LI><a href="#[6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UsageFault_Handler
+</UL>
+<BR>[Called By]<UL><LI><a href="#[6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UsageFault_Handler
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> startup_lpc17xx.o(RESET)
+</UL>
+<P><STRONG><a name="[7]"></a>SVC_Handler</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, startup_lpc17xx.o(.text))
+<BR><BR>[Calls]<UL><LI><a href="#[7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SVC_Handler
+</UL>
+<BR>[Called By]<UL><LI><a href="#[7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SVC_Handler
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> startup_lpc17xx.o(RESET)
+</UL>
+<P><STRONG><a name="[8]"></a>DebugMon_Handler</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, startup_lpc17xx.o(.text))
+<BR><BR>[Calls]<UL><LI><a href="#[8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DebugMon_Handler
+</UL>
+<BR>[Called By]<UL><LI><a href="#[8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DebugMon_Handler
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> startup_lpc17xx.o(RESET)
+</UL>
+<P><STRONG><a name="[9]"></a>PendSV_Handler</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, startup_lpc17xx.o(.text))
+<BR><BR>[Calls]<UL><LI><a href="#[9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PendSV_Handler
+</UL>
+<BR>[Called By]<UL><LI><a href="#[9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PendSV_Handler
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> startup_lpc17xx.o(RESET)
+</UL>
+<P><STRONG><a name="[a]"></a>SysTick_Handler</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, startup_lpc17xx.o(.text))
+<BR><BR>[Calls]<UL><LI><a href="#[a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Handler
+</UL>
+<BR>[Called By]<UL><LI><a href="#[a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Handler
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> startup_lpc17xx.o(RESET)
+</UL>
+<P><STRONG><a name="[21]"></a>ADC_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_lpc17xx.o(.text))
+<BR><BR>[Calls]<UL><LI><a href="#[21]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC_IRQHandler
+</UL>
+<BR>[Called By]<UL><LI><a href="#[21]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC_IRQHandler
+</UL>
+<BR>[Address Reference Count : 1]<UL><LI> startup_lpc17xx.o(RESET)
+</UL>
+<P><STRONG><a name="[22]"></a>BOD_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_lpc17xx.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> startup_lpc17xx.o(RESET)
+</UL>
+<P><STRONG><a name="[2d]"></a>CANActivity_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_lpc17xx.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> startup_lpc17xx.o(RESET)
+</UL>
+<P><STRONG><a name="[24]"></a>CAN_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_lpc17xx.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> startup_lpc17xx.o(RESET)
+</UL>
+<P><STRONG><a name="[25]"></a>DMA_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_lpc17xx.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> startup_lpc17xx.o(RESET)
+</UL>
+<P><STRONG><a name="[1d]"></a>EINT0_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_lpc17xx.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> startup_lpc17xx.o(RESET)
+</UL>
+<P><STRONG><a name="[1e]"></a>EINT1_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_lpc17xx.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> startup_lpc17xx.o(RESET)
+</UL>
+<P><STRONG><a name="[1f]"></a>EINT2_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_lpc17xx.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> startup_lpc17xx.o(RESET)
+</UL>
+<P><STRONG><a name="[20]"></a>EINT3_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_lpc17xx.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> startup_lpc17xx.o(RESET)
+</UL>
+<P><STRONG><a name="[27]"></a>ENET_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_lpc17xx.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> startup_lpc17xx.o(RESET)
+</UL>
+<P><STRONG><a name="[15]"></a>I2C0_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_lpc17xx.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> startup_lpc17xx.o(RESET)
+</UL>
+<P><STRONG><a name="[16]"></a>I2C1_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_lpc17xx.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> startup_lpc17xx.o(RESET)
+</UL>
+<P><STRONG><a name="[17]"></a>I2C2_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_lpc17xx.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> startup_lpc17xx.o(RESET)
+</UL>
+<P><STRONG><a name="[26]"></a>I2S_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_lpc17xx.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> startup_lpc17xx.o(RESET)
+</UL>
+<P><STRONG><a name="[29]"></a>MCPWM_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_lpc17xx.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> startup_lpc17xx.o(RESET)
+</UL>
+<P><STRONG><a name="[1b]"></a>PLL0_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_lpc17xx.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> startup_lpc17xx.o(RESET)
+</UL>
+<P><STRONG><a name="[2b]"></a>PLL1_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_lpc17xx.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> startup_lpc17xx.o(RESET)
+</UL>
+<P><STRONG><a name="[14]"></a>PWM1_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_lpc17xx.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> startup_lpc17xx.o(RESET)
+</UL>
+<P><STRONG><a name="[2a]"></a>QEI_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_lpc17xx.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> startup_lpc17xx.o(RESET)
+</UL>
+<P><STRONG><a name="[28]"></a>RIT_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_lpc17xx.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> startup_lpc17xx.o(RESET)
+</UL>
+<P><STRONG><a name="[1c]"></a>RTC_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_lpc17xx.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> startup_lpc17xx.o(RESET)
+</UL>
+<P><STRONG><a name="[18]"></a>SPI_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_lpc17xx.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> startup_lpc17xx.o(RESET)
+</UL>
+<P><STRONG><a name="[19]"></a>SSP0_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_lpc17xx.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> startup_lpc17xx.o(RESET)
+</UL>
+<P><STRONG><a name="[1a]"></a>SSP1_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_lpc17xx.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> startup_lpc17xx.o(RESET)
+</UL>
+<P><STRONG><a name="[c]"></a>TIMER0_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_lpc17xx.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> startup_lpc17xx.o(RESET)
+</UL>
+<P><STRONG><a name="[d]"></a>TIMER1_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_lpc17xx.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> startup_lpc17xx.o(RESET)
+</UL>
+<P><STRONG><a name="[e]"></a>TIMER2_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_lpc17xx.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> startup_lpc17xx.o(RESET)
+</UL>
+<P><STRONG><a name="[f]"></a>TIMER3_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_lpc17xx.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> startup_lpc17xx.o(RESET)
+</UL>
+<P><STRONG><a name="[10]"></a>UART0_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_lpc17xx.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> startup_lpc17xx.o(RESET)
+</UL>
+<P><STRONG><a name="[11]"></a>UART1_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_lpc17xx.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> startup_lpc17xx.o(RESET)
+</UL>
+<P><STRONG><a name="[12]"></a>UART2_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_lpc17xx.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> startup_lpc17xx.o(RESET)
+</UL>
+<P><STRONG><a name="[13]"></a>UART3_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_lpc17xx.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> startup_lpc17xx.o(RESET)
+</UL>
+<P><STRONG><a name="[2c]"></a>USBActivity_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_lpc17xx.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> startup_lpc17xx.o(RESET)
+</UL>
+<P><STRONG><a name="[23]"></a>USB_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_lpc17xx.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> startup_lpc17xx.o(RESET)
+</UL>
+<P><STRONG><a name="[b]"></a>WDT_IRQHandler</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, startup_lpc17xx.o(.text))
+<BR>[Address Reference Count : 1]<UL><LI> startup_lpc17xx.o(RESET)
+</UL>
+<P><STRONG><a name="[30]"></a>__user_initial_stackheap</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, startup_lpc17xx.o(.text), UNUSED, KEPT)
+
+<P><STRONG><a name="[31]"></a>__use_two_region_memory</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, heapauxi.o(.text), UNUSED)
+
+<P><STRONG><a name="[32]"></a>__rt_heap_escrow$2region</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, heapauxi.o(.text), UNUSED)
+
+<P><STRONG><a name="[33]"></a>__rt_heap_expand$2region</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, heapauxi.o(.text), UNUSED)
+<P>
+<H3>
+Local Symbols
+</H3>
+<P><STRONG><a name="[2f]"></a>myUADD8</STRONG> (Thumb, 56 bytes, Stack size 0 bytes, startup_lpc17xx.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[2e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Reset_Handler
+</UL>
+<P>
+<H3>
+Undefined Global Symbols
+</H3><HR></body></html>
