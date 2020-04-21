@@ -1,5 +1,5 @@
 # CAs Lab 04
-Laboratory 04 of the course Computer Architectures at Politecnico di Torino, academic year 2019/2020.<br/>
+Laboratory 04 of the Computer Architectures course of the master degree in Embedded System (Electronic Engineering) of Politecnico di Torino, academic year 2019/2020.<br/>
 
 Considering a MIPS architecture with the following characteristics:
 - Integer ALU: 1 clock cycle

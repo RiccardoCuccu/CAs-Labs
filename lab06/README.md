@@ -1,6 +1,6 @@
 # CAs Lab 06
-Laboratory 06 of the course Computer Architectures at Politecnico di Torino, academic year 2019/2020.<br/>
-Tested with Keil µVision.
+Laboratory 06 of the Computer Architectures course of the master degree in Embedded System (Electronic Engineering) of Politecnico di Torino, academic year 2019/2020.<br/>
+Tested in Keil uVision5.
 
 ## Exercise 1
 - Cortex-M4 instruction set contains the following instruction:<br/>

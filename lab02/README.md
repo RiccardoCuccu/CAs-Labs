@@ -1,6 +1,6 @@
 # CAs Lab 02
-Laboratory 02 of the course Computer Architectures at Politecnico di Torino, academic year 2019/2020.<br/>
-Tested with EMU8086 version 4.08.
+Laboratory 02 of the Computer Architectures course of the master degree in Embedded System (Electronic Engineering) of Politecnico di Torino, academic year 2019/2020.<br/>
+Tested in EMU8086 version 4.08.
 
 ## Write a program in 8086 assembly for multiplying two matrices whose elements are signed numbers expressed with one byte
 - First matrix has `N` rows and `M` columns.

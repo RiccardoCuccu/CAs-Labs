@@ -1,5 +1,5 @@
 # CAs Lab 03
-Laboratory 03 of the course Computer Architectures at Politecnico di Torino, academic year 2019/2020.<br/>
+Laboratory 03 of the Computer Architectures course of the master degree in Embedded System (Electronic Engineering) of Politecnico di Torino, academic year 2019/2020.<br/>
 
 **FOR THIS LABORATORY NO FILES HAVE TO BE UPLOADED IN THE “ELABORATI” SECTION OF THE TEACHING PORTAL**.
 

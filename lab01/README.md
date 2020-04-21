@@ -1,6 +1,6 @@
 # CAs Lab 01
-Laboratory 01 of the course Computer Architectures at Politecnico di Torino, academic year 2019/2020.<br/>
-Tested with EMU8086 version 4.08.
+Laboratory 01 of the Computer Architectures course of the master degree in Embedded System (Electronic Engineering) of Politecnico di Torino, academic year 2019/2020.<br/>
+Tested in EMU8086 version 4.08.
 
 ## Read in input a short text of 4 lines, each of these lines long from 20 to 50 characters
 The program reads the lines with the instruction INT 21H and stores them in:<br/>

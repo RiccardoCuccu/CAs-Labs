@@ -1,6 +1,6 @@
 # CAs Lab 05
-Laboratory 05 of the course Computer Architectures at Politecnico di Torino, academic year 2019/2020.<br/>
-Tested with Keil µVision.
+Laboratory 05 of the Computer Architectures course of the master degree in Embedded System (Electronic Engineering) of Politecnico di Torino, academic year 2019/2020.<br/>
+Tested in Keil uVision5.
 
 ## Exercise 1
 Write a program in ARM assembly language executing this tasks:
