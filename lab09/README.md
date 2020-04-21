@@ -30,6 +30,7 @@ Implement in funct_led.c the function void `LED_On(unsigned int num)` powering o
 - num = 0 -> led 4
 - num = 1 -> led 5
 - num = 7 -> led 11
+
 Test the function calling it from the main.
 
 ## Exercise 5
@@ -39,4 +40,5 @@ Implement in funct_led.c the function void `LED_Off(unsigned int num)` powering 
 - num = 0 -> led 4
 - num = 1 -> led 5
 - num = 7 -> led 11
+
 Test the function calling it from the main.
