@@ -2,7 +2,7 @@
 Laboratory 12 of the Computer Architectures course of the master degree in Embedded System (Electronic Engineering) of Politecnico di Torino, academic year 2019/2020.<br/>
 Tested in Keil uVision5.
 
-## Exam Test
+## Exam Text
 A retailer must supply his shop by purchasing the goods from a wholesaler. The products sold by the wholesaler are listed in a `Price_list` table of `N` lines (`N` is a constant defined with `EQU`). Each line contains:
 - a hexadecimal code uniquely identifying the product, expressed in 1 word (4 bytes);
 - the price of one unit of the product, expressed on 1 word.
