@@ -111,36 +111,32 @@ __Vectors       DCD     __initial_sp              ; Top of Stack
                 DCD     CANActivity_IRQHandler    ; 50: CAN Activity interrupt to wakeup
 
 
-
                 IF      :LNOT::DEF:NO_CRP
                 AREA    |.ARM.__at_0x02FC|, CODE, READONLY
 CRP_Key         DCD     0xFFFFFFFF
                 ENDIF
-
 
                 AREA    |.text|, CODE, READONLY
 
 
 ; Reset Handler
 
-
-
 Reset_Handler   PROC
                 EXPORT  Reset_Handler             [WEAK]
 
-single_value	RN 1
-double_value	RN 2
-triple_value	RN 3
-quadruple_value	RN 4
-quintuple_value	RN 5
-				
-				MOV		single_value, #11
-				ADD		double_value, single_value, single_value
-				ADD		triple_value, double_value, single_value
-				ADD		quadruple_value, triple_value, single_value
-				ADD		quintuple_value, quadruple_value, single_value
-				
-stop			B stop
+single_value    RN      1
+double_value    RN      2
+triple_value    RN      3
+quadruple_value RN      4
+quintuple_value RN      5
+
+                MOV     single_value, #11
+                ADD     double_value, single_value, single_value
+                ADD     triple_value, double_value, single_value
+                ADD     quadruple_value, triple_value, single_value
+                ADD     quintuple_value, quadruple_value, single_value
+
+stop            B       stop
                 ENDP
 
 

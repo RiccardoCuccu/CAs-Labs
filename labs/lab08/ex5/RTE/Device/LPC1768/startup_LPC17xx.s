@@ -124,37 +124,37 @@ CRP_Key         DCD     0xFFFFFFFF
 
 Reset_Handler   PROC
                 EXPORT  Reset_Handler             [WEAK]
-                
-				EXTERN main
-				BL main
-				
-stop			B stop
+
+                EXTERN  main
+                BL      main
+
+stop            B       stop
                 ENDP
-					
-myUADD8			PROC
-				PUSH {r4-r11, LR}
-				EXPORT myUADD8
-				
-				AND r10, r0, #0x000000FF	; extract the first byte from the first value
-				ADD	r10, r10, r1			; add it with the second value
-				AND	r4, r10, #0x000000FF	; save the partial result
-				
-				AND r10, r0, #0x0000FF00	; extract the second byte from the first value
-				ADD	r10, r10, r1			; add it with the second value
-				AND	r11, r10, #0x0000FF00	; extract the partial result
-				ADD r4, r4, r11				; merge partial results
-				
-				AND r10, r0, #0x00FF0000	; extract the third byte from the first value
-				ADD	r10, r10, r1			; add it with the second value
-				AND	r11, r10, #0x00FF0000	; extract the partial result
-				ADD r4, r4, r11				; merge partial results
-				
-				AND r10, r0, #0xFF000000	; extract fourth byte from the first value
-				ADD	r10, r10, r1			; add it with the second value
-				AND	r11, r10, #0xFF000000	; extract the partial result
-				ADD r0, r4, r11				; merge partial results
-				
-				POP {r4-r11, PC}
+
+myUADD8         PROC
+                PUSH    {r4-r11, LR}
+                EXPORT  myUADD8
+
+                AND     r10, r0, #0x000000FF      ; extract the first byte from the first value
+                ADD     r10, r10, r1              ; add it with the second value
+                AND     r4, r10, #0x000000FF      ; save the partial result
+
+                AND     r10, r0, #0x0000FF00      ; extract the second byte from the first value
+                ADD     r10, r10, r1              ; add it with the second value
+                AND     r11, r10, #0x0000FF00     ; extract the partial result
+                ADD     r4, r4, r11               ; merge partial results
+
+                AND     r10, r0, #0x00FF0000      ; extract the third byte from the first value
+                ADD     r10, r10, r1              ; add it with the second value
+                AND     r11, r10, #0x00FF0000     ; extract the partial result
+                ADD     r4, r4, r11               ; merge partial results
+
+                AND     r10, r0, #0xFF000000      ; extract fourth byte from the first value
+                ADD     r10, r10, r1              ; add it with the second value
+                AND     r11, r10, #0xFF000000     ; extract the partial result
+                ADD     r0, r4, r11               ; merge partial results
+
+                POP     {r4-r11, PC}
                 ENDP
 
 

@@ -116,54 +116,44 @@ __Vectors       DCD     __initial_sp              ; Top of Stack
 CRP_Key         DCD     0xFFFFFFFF
                 ENDIF
 
+Reserved_Size   EQU     0x00000010                ; 16 byte
 
-Reserved_Size   EQU     0x00000010					; 16 byte
                 AREA    exercise, DATA, READWRITE
 Reserved_Mem    SPACE   Reserved_Size
 
                 AREA    |.text|, CODE, READONLY
-myConstants		DCW		57721, 56649, 15328, 60606, 51209, 8240, 24310, 42159
+myConstants     DCW     57721, 56649, 15328, 60606, 51209, 8240, 24310, 42159
+
 
 ; Reset Handler
 
 Reset_Handler   PROC
                 EXPORT  Reset_Handler             [WEAK]
-				
-				LDR r14, =Reserved_Mem				; Address of Reserved_Mem
-				LDR r12, =myConstants				; Address of myConstants
-				
-				;LDR r0, [r12]
-				;LDR r1, [r12, #1]
-				;LDR r2, [r12, #2]
-				;LDR r3, [r12, #3]
-				
-				;ADDS r4,r0,r2
-				;ADC r5,r1,r3						; r5,r4 = r1,r0 + r3,r2
-				
-				;STR r4, [r14]
-				;STR r5, [r14, #1]
-				
-				LDRH r0, [r12]
-				LDRH r1, [r12, #2]
-				ADDS r2, r0, r1
-				STR r2, [r14]
-				
-				LDRH r0, [r12, #4]
-				LDRH r1, [r12, #6]
-				ADDS r2, r0, r1
-				STR r2, [r14, #4]
-				
-				LDRH r0, [r12, #8]
-				LDRH r1, [r12, #10]
-				ADDS r2, r0, r1
-				STR r2, [r14, #8]
-				
-				LDRH r0, [r12, #12]
-				LDRH r1, [r12, #14]
-				ADDS r2, r0, r1
-				STR r2, [r14, #12]
-				
-stop			B stop
+
+                LDR     r14, =Reserved_Mem        ; load address of Reserved_Mem
+                LDR     r12, =myConstants         ; load address of myConstants
+
+                LDRH    r0, [r12]                 ; load register halfword (16-bit)
+                LDRH    r1, [r12, #2]             ; load register halfword (16-bit)
+                ADDS    r2, r0, r1                ; add registers
+                STR     r2, [r14]                 ; store result
+
+                LDRH    r0, [r12, #4]
+                LDRH    r1, [r12, #6]
+                ADDS    r2, r0, r1
+                STR     r2, [r14, #4]
+
+                LDRH    r0, [r12, #8]
+                LDRH    r1, [r12, #10]
+                ADDS    r2, r0, r1
+                STR     r2, [r14, #8]
+
+                LDRH    r0, [r12, #12]
+                LDRH    r1, [r12, #14]
+                ADDS    r2, r0, r1
+                STR     r2, [r14, #12]
+
+stop            B       stop
                 ENDP
 
 

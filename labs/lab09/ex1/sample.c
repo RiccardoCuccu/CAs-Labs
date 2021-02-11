@@ -18,9 +18,9 @@
  *----------------------------------------------------------------------------*/
 int main (void) 
 {
-  LED_init();                           /* LED Initialization                 */
-	all_LED_on();
-	all_LED_off();
-	led4and11_On();
-  while (1);                            /* Loop forever                       */	
+    LED_init();                         /* LED Initialization                 */
+    all_LED_on();
+    all_LED_off();
+    led4and11_On();
+    while (1);                          /* Loop forever                       */
 }

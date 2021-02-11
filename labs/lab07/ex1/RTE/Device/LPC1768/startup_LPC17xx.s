@@ -119,143 +119,143 @@ CRP_Key         DCD     0xFFFFFFFF
 
                 AREA    |.text|, CODE, READONLY
 
-word			EQU		0x00000004					; 4 byte = 1 word
-N		   		EQU     0x00000004					; rows of Matrix_A
-M		   		EQU     0x00000007					; columns of Matrix_A and rows of Matrix_B
-P				EQU     0x00000005					; columns of Matrix_B
-N_word		   	EQU     N*word
-M_word		   	EQU     M*word	
-P_word			EQU     P*word	
-NM				EQU     N*M
-MP				EQU     M*P
-NP				EQU     N*P
-NM_word			EQU     NM*word
-MP_word			EQU     MP*word
-NP_word			EQU     NP*word
-sum_iteration	EQU		M
-row_iteration	EQU		N
-col_iteration	EQU		P
+word            EQU     0x00000004                          ; 4 byte = 1 word
+N               EQU     0x00000004                          ; rows of Matrix_A
+M               EQU     0x00000007                          ; columns of Matrix_A and rows of Matrix_B
+P               EQU     0x00000005                          ; columns of Matrix_B
+N_word          EQU     N*word
+M_word          EQU     M*word
+P_word          EQU     P*word
+NM              EQU     N*M
+MP              EQU     M*P
+NP              EQU     N*P
+NM_word         EQU     NM*word
+MP_word         EQU     MP*word
+NP_word         EQU     NP*word
+sum_iteration   EQU     M
+row_iteration   EQU     N
+col_iteration   EQU     P
 
-counter			RN		 7
-h_partial_sum	RN		 8
-l_partial_sum	RN		 9
-element_A		RN		10
-element_B		RN		11
-element_C		RN		12
+counter         RN       7
+h_partial_sum   RN       8
+l_partial_sum   RN       9
+element_A       RN      10
+element_B       RN      11
+element_C       RN      12
 
                 AREA    exercise, DATA, READWRITE
-Matrix_C	    SPACE   NM_word
+Matrix_C        SPACE   NM_word
 
                 AREA    |.text|, CODE, READONLY
-;Matrix_A		DCD		 4, -3, 5,  1
-;				DCD		 3, -5, 0, 11
-;				DCD		-5, 12, 4, -5
+;Matrix_A        DCD      4, -3, 5,  1
+;                DCD      3, -5, 0, 11
+;                DCD     -5, 12, 4, -5
 
-Matrix_A		DCD		 0x00000BB8, 0x000036B0, 0xFFFFC568, 0x00002328, 0x00006590, 0xFFFF30F8, 0x00001388
-				DCD		 0x00015BA8, 0x00013498, 0x00000BB8, 0x000059D8, 0x00014820, 0xFFFFE890, 0xFFFF8AD0
-				DCD		 0x0000A7F8, 0xFFFFF448, 0x00014438, 0x00006978, 0xFFFFDCD8, 0x0000C350, 0x00006D60
-				DCD		 0xFFFEA840, 0x0000A028, 0x00017AE8, 0xFFFE6DA8, 0x00010D88, 0x00009858, 0xFFFFDCD8
+Matrix_A        DCD     0x00000BB8, 0x000036B0, 0xFFFFC568, 0x00002328, 0x00006590, 0xFFFF30F8, 0x00001388
+                DCD     0x00015BA8, 0x00013498, 0x00000BB8, 0x000059D8, 0x00014820, 0xFFFFE890, 0xFFFF8AD0
+                DCD     0x0000A7F8, 0xFFFFF448, 0x00014438, 0x00006978, 0xFFFFDCD8, 0x0000C350, 0x00006D60
+                DCD     0xFFFEA840, 0x0000A028, 0x00017AE8, 0xFFFE6DA8, 0x00010D88, 0x00009858, 0xFFFFDCD8
 
-;Matrix_B		DCD		 -2,  3
-;				DCD		  5, -1
-;				DCD		  4,  3
-;				DCD		  9, -7
+;Matrix_B        DCD     -2,  3
+;                DCD      5, -1
+;                DCD      4,  3
+;                DCD      9, -7
 
-Matrix_B		DCD		0x00009088, 0xFFFE7578, 0x00000000, 0x0000E290, 0xFFFFB1E0
-				DCD		0x00002328, 0x00012110, 0x00016F30, 0xFFFFF060, 0x0000E678
-				DCD		0xFFFFA628, 0x00015F90, 0xFFFECF50, 0x00003E80, 0xFFFFF060
-				DCD		0x00000000, 0xFFFF0DD0, 0x00014FF0, 0x00004E20, 0x00015BA8
-				DCD		0x00002328, 0x00014FF0, 0x00006D60, 0x00000000, 0xFFFF7B30
-				DCD		0x00014050, 0x00001388, 0x000084D0, 0xFFFFADF8, 0x000003E8
-				DCD		0x00011170, 0xFFFEFA48, 0x00002328, 0x00014050, 0x000036B0
+Matrix_B        DCD     0x00009088, 0xFFFE7578, 0x00000000, 0x0000E290, 0xFFFFB1E0
+                DCD     0x00002328, 0x00012110, 0x00016F30, 0xFFFFF060, 0x0000E678
+                DCD     0xFFFFA628, 0x00015F90, 0xFFFECF50, 0x00003E80, 0xFFFFF060
+                DCD     0x00000000, 0xFFFF0DD0, 0x00014FF0, 0x00004E20, 0x00015BA8
+                DCD     0x00002328, 0x00014FF0, 0x00006D60, 0x00000000, 0xFFFF7B30
+                DCD     0x00014050, 0x00001388, 0x000084D0, 0xFFFFADF8, 0x000003E8
+                DCD     0x00011170, 0xFFFEFA48, 0x00002328, 0x00014050, 0x000036B0
 
 ; Reset Handler
 
 Reset_Handler   PROC
                 EXPORT  Reset_Handler             [WEAK]
-				LDR element_C, =Matrix_C				; Address of Matrix_C
-				LDR element_A, =Matrix_A				; Address of Matrix_A
-				LDR element_B, =Matrix_B				; Address of Matrix_B
-				
-				BL col_cycle
-				
-				NOP
-				NOP
-				NOP
+                LDR     element_C, =Matrix_C                ; load address of Matrix_C
+                LDR     element_A, =Matrix_A                ; load address of Matrix_A
+                LDR     element_B, =Matrix_B                ; load address of Matrix_B
 
-stop			B stop
+                BL      col_cycle
+
+                NOP
+                NOP
+                NOP
+
+stop            B       stop
                 ENDP
 
-col_cycle		PROC
-				PUSH {element_A, counter, LR}
-				MOV h_partial_sum, #0					; reset high partial sum
-				MOV l_partial_sum, #0					; reset low partial sum
-				MOV counter, #row_iteration				; load the number of rows of Marix_C
-col_items		BL row_cycle
-				ADD element_A, element_A, #M_word		; next row of Marix_A (new row)
-				SUB	counter, counter, #1				; decrement counter
-				CMP counter, #0							; check if counter is #0
-				BNE	col_items							; return to column items if count is not #0
-				POP {element_A, counter, PC}			; return
-				ENDP
+col_cycle       PROC
+                PUSH    {element_A, counter, LR}
+                MOV     h_partial_sum, #0                   ; reset high partial sum
+                MOV     l_partial_sum, #0                   ; reset low partial sum
+                MOV     counter, #row_iteration             ; load the number of rows of Marix_C
+col_items       BL      row_cycle
+                ADD     element_A, element_A, #M_word       ; next row of Marix_A (new row)
+                SUB     counter, counter, #1                ; decrement counter
+                CMP     counter, #0                         ; check if counter is #0
+                BNE     col_items                           ; return to column items if count is not #0
+                POP     {element_A, counter, PC}            ; return
+                ENDP
 
-row_cycle		PROC
-				PUSH {element_B, counter, LR}
-				MOV counter, #col_iteration				; load the number of colums of Marix_C
-row_items		BL sum_elements
-				ADD element_B, element_B, #word			; next element of Marix_B (new column)
-				SUB	counter, counter, #1				; decrement counter
-				CMP counter, #0							; check if counter is #0
-				BNE	row_items							; return to row items if count is not #0
-				POP {element_B, counter, PC}			; return
-				ENDP
+row_cycle       PROC
+                PUSH    {element_B, counter, LR}
+                MOV     counter, #col_iteration             ; load the number of colums of Marix_C
+row_items       BL      sum_elements
+                ADD     element_B, element_B, #word         ; next element of Marix_B (new column)
+                SUB     counter, counter, #1                ; decrement counter
+                CMP     counter, #0                         ; check if counter is #0
+                BNE     row_items                           ; return to row items if count is not #0
+                POP     {element_B, counter, PC}            ; return
+                ENDP
 
-sum_elements	PROC
-				PUSH {element_A, element_B, h_partial_sum, l_partial_sum, counter, LR}
-				MOV counter, #sum_iteration				; load the number of sums
-sum_items		BL mul_elements							; call mul_elements
-				ADD element_A, element_A, #word			; next element of Marix_A (new column)
-				ADD element_B, element_B, #P_word		; next element of Marix_B (new row)
-				SUB	counter, counter, #1				; decrement counter
-				CMP counter, #0							; check if counter is #0
-				BNE	sum_items							; return to sum items if count is not #0
-				BL check_result							; check overflow
-				STR	l_partial_sum, [element_C]			; store result
-				ADD element_C, element_C, #word			; next element of Marix_C
-				POP {element_A, element_B, h_partial_sum, l_partial_sum, counter, PC}	
-				ENDP
+sum_elements    PROC
+                PUSH    {element_A, element_B, h_partial_sum, l_partial_sum, counter, LR}
+                MOV     counter, #sum_iteration             ; load the number of sums
+sum_items       BL      mul_elements                        ; call mul_elements
+                ADD     element_A, element_A, #word         ; next element of Marix_A (new column)
+                ADD     element_B, element_B, #P_word       ; next element of Marix_B (new row)
+                SUB     counter, counter, #1                ; decrement counter
+                CMP     counter, #0                         ; check if counter is #0
+                BNE     sum_items                           ; return to sum items if count is not #0
+                BL      check_result                        ; check overflow
+                STR     l_partial_sum, [element_C]          ; store result
+                ADD     element_C, element_C, #word         ; next element of Marix_C
+                POP     {element_A, element_B, h_partial_sum, l_partial_sum, counter, PC}   
+                ENDP
 
-mul_elements	PROC
-				PUSH {counter, LR}
-				LDR r0, [element_A]						; load value from Matrix_A
-				LDR r1, [element_B]						; load value from Matrix_B
-				SMULL r2, r3, r0, r1					; signed multiplication with 64-bit result [SMULL <RLo>, <RHi>, <Rn>, <Rm>]
-				ADDS l_partial_sum, l_partial_sum, r2	; store low partial result setting carry
-				ADCS h_partial_sum, h_partial_sum, r3	; store high partial result adding carry
-				POP {counter, PC}						; return
-				ENDP
-					
-check_result	PROC
-				PUSH {LR}
-pos_compare		CMP h_partial_sum, #0x00000000			; check direct overflow (positive)
-				BNE neg_compare
-				AND counter, l_partial_sum, #0x80000000
-				CMP counter, #0x00000000
-				BEQ end_compare							; right positive result					
-neg_compare		CMP h_partial_sum, #0xFFFFFFFF			; check direct overflow (negative)
-				BNE overflow
-				AND counter, l_partial_sum, #0x80000000
-				CMP counter, #0x80000000
-				BEQ end_compare							; right negative result				
-overflow		AND counter, h_partial_sum, #0x80000000	; check indirect overflow (positive)
-				CMP counter, #0x80000000
-				BNE neg_overflow					
-pos_overflow	MOV l_partial_sum, #0x80000000			; positive overflow
-				B end_compare
-neg_overflow	MOV l_partial_sum, #0x7FFFFFFF			; negative overflow	
-end_compare	
-				POP {PC}								; return
-				ENDP
+mul_elements    PROC
+                PUSH    {counter, LR}
+                LDR     r0, [element_A]                     ; load value from Matrix_A
+                LDR     r1, [element_B]                     ; load value from Matrix_B
+                SMULL   r2, r3, r0, r1                      ; signed multiplication with 64-bit result [SMULL <RLo>, <RHi>, <Rn>, <Rm>]
+                ADDS    l_partial_sum, l_partial_sum, r2    ; store low partial result setting carry
+                ADCS    h_partial_sum, h_partial_sum, r3    ; store high partial result adding carry
+                POP     {counter, PC}                       ; return
+                ENDP
+
+check_result    PROC
+                PUSH    {LR}
+pos_compare     CMP     h_partial_sum, #0x00000000          ; check direct overflow (positive)
+                BNE     neg_compare
+                AND     counter, l_partial_sum, #0x80000000
+                CMP     counter, #0x00000000
+                BEQ     end_compare                         ; right positive result                 
+neg_compare     CMP     h_partial_sum, #0xFFFFFFFF          ; check direct overflow (negative)
+                BNE     overflow
+                AND     counter, l_partial_sum, #0x80000000
+                CMP     counter, #0x80000000
+                BEQ     end_compare                         ; right negative result             
+overflow        AND     counter, h_partial_sum, #0x80000000 ; check indirect overflow (positive)
+                CMP     counter, #0x80000000
+                BNE     neg_overflow                    
+pos_overflow    MOV     l_partial_sum, #0x80000000          ; positive overflow
+                B       end_compare
+neg_overflow    MOV     l_partial_sum, #0x7FFFFFFF          ; negative overflow 
+end_compare 
+                POP     {PC}                                ; return
+                ENDP
 
 
 ; Dummy Exception Handlers (infinite loops which can be modified)

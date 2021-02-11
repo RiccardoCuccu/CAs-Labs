@@ -117,9 +117,9 @@ CRP_Key         DCD     0xFFFFFFFF
                 ENDIF
 
                 AREA    exercise, DATA, READWRITE
-Rn_register		SPACE	0x00000004			; we can't initialize here because it is a RAM
-Rm_register		SPACE	0x00000004			; we can't initialize here because it is a RAM
-Rd_register		SPACE   0x00000004
+Rn_register     SPACE   0x00000004                ; we can't initialize here because it is a RAM
+Rm_register     SPACE   0x00000004                ; we can't initialize here because it is a RAM
+Rd_register     SPACE   0x00000004
 
                 AREA    |.text|, CODE, READONLY
 
@@ -128,78 +128,74 @@ Rd_register		SPACE   0x00000004
 Reset_Handler   PROC
                 EXPORT  Reset_Handler             [WEAK]
 
-				;MOV r0, #0x7A30458D		; starting value
-				MOV r0, #0x458D				; MOV + MOVT to move 32 bit immediate
-				MOVT r0, #0x7A30
-				
-				;MOV r1, #0xC3159EAA		; starting value
-				MOV r1, #0x9EAA				; MOV + MOVT to move 32 bit immediate
-				MOVT r1, #0xC315
-				
-				;MOV r4, #0x000000DA		; comparison value
-				;MOV r4, #0x00DA			; MOV + MOVT to move 32 bit immediate
-				;MOVT r4, #0x0000
-				
-				LDR r2, =Rn_register
-				LDR r3, =Rm_register
-				
-				STR r0, [r2]
-				STR r1, [r3]
-				
-				LDR r6, =Rn_register
-				
-				BL myUSAD8
+                ;#0x7A30458D
+                MOV     r0, #0x458D               ; write 0x458D to R0[15:0]
+                MOVT    r0, #0x7A30               ; write 0x7A30 to R0[31:16]
 
-				NOP
-				NOP
-				NOP
-				
-stop			B stop
+                ;#0xC3159EAA
+                MOV     r1, #0x9EAA               ; write 0x9EAA to R1[15:0]
+                MOVT    r1, #0xC315               ; write 0xC315 to R1[31:16]
+
+                LDR     r2, =Rn_register          ; load address of Rn_register
+                LDR     r3, =Rm_register          ; load address of Rm_register
+
+                STR     r0, [r2]                  ; store in the address indicated by r2
+                STR     r1, [r3]                  ; store in the address indicated by r3
+
+                LDR     r6, =Rn_register          ; load address of Rn_register
+
+                BL      myUSAD8
+
+                NOP
+                NOP
+                NOP
+
+stop            B       stop
                 ENDP
 
-myUSAD8			PROC
-				PUSH {r0-r12, LR}
-				
-				LDR r0, [r6]
-				LDR r1, [r6, #4]
-				
-				AND r11, r0, #0x000000FF	; extract the first byte from the first value
-				AND r10, r1, #0x000000FF	; extract the first byte from the second value
-				CMP r11, r10				; compare
-				ITE HI						; if r11 is (HI)gher than r10
-				SUBHI r5, r11, r10			; than r2 = r11 - r10
-				SUBLS r5, r10, r11			; else r2 = r10 - r11
+myUSAD8         PROC
+                PUSH    {r0-r12, LR}
 
-				AND r11, r0, #0x0000FF00	; extract the second byte from the first value
-				AND r10, r1, #0x0000FF00	; extract the second byte from the second value
-				CMP r11, r10				; compare
-				ITE HI						; if r11 is (HI)gher than r10
-				SUBHI r3, r11, r10			; than r2 = r11 - r10
-				SUBLS r3, r10, r11			; else r2 = r10 - r11
-				LSR r3, r3, #8				; logical shift right by 8 positions
-				ADD r5, r5, r3				; add value
+                LDR     r0, [r6]                  ; load the stored value at the address indicated by r6
+                LDR     r1, [r6, #4]              ; load the stored value at the address indicated by r6 + 4 bytes
 
-				AND r11, r0, #0x00FF0000	; extract the third byte from the first value
-				AND r10, r1, #0x00FF0000	; extract the third byte from the second value
-				CMP r11, r10				; compare
-				ITE HI						; if r11 is (HI)gher than r10
-				SUBHI r3, r11, r10			; than r2 = r11 - r10
-				SUBLS r3, r10, r11			; else r2 = r10 - r11
-				LSR r3, r3, #16				; logical shift right by 16 positions
-				ADD r5, r5, r3				; add value
-				
-				AND r11, r0, #0xFF000000	; extract the fourth byte from the first value
-				AND r10, r1, #0xFF000000	; extract the fourth byte from the second value
-				CMP r11, r10				; compare
-				ITE HI						; if r11 is (HI)gher than r10
-				SUBHI r3, r11, r10			; than r2 = r11 - r10
-				SUBLS r3, r10, r11			; else r2 = r10 - r11
-				LSR r3, r3, #24				; logical shift right by 24 positions
-				ADD r5, r5, r3				; add value (final result)
-				
-				STR r5, [r6, #8]			; store result
-				
-				POP {r0-r12, PC}
+                AND     r11, r0, #0x000000FF      ; extract the first byte from the first value
+                AND     r10, r1, #0x000000FF      ; extract the first byte from the second value
+                CMP     r11, r10                  ; compare
+                ITE     HI                        ; if r11 is (HI)gher than r10
+                SUBHI   r5, r11, r10              ; than r5 = r11 - r10
+                SUBLS   r5, r10, r11              ; else r5 = r10 - r11
+
+                AND     r11, r0, #0x0000FF00      ; extract the second byte from the first value
+                AND     r10, r1, #0x0000FF00      ; extract the second byte from the second value
+                CMP     r11, r10                  ; compare
+                ITE     HI                        ; if r11 is (HI)gher than r10
+                SUBHI   r3, r11, r10              ; than r3 = r11 - r10
+                SUBLS   r3, r10, r11              ; else r3 = r10 - r11
+                LSR     r3, r3, #8                ; logical shift right by 8 positions
+                ADD     r5, r5, r3                ; add value
+
+                AND     r11, r0, #0x00FF0000      ; extract the third byte from the first value
+                AND     r10, r1, #0x00FF0000      ; extract the third byte from the second value
+                CMP     r11, r10                  ; compare
+                ITE     HI                        ; if r11 is (HI)gher than r10
+                SUBHI   r3, r11, r10              ; than r3 = r11 - r10
+                SUBLS   r3, r10, r11              ; else r3 = r10 - r11
+                LSR     r3, r3, #16               ; logical shift right by 16 positions
+                ADD     r5, r5, r3                ; add value
+
+                AND     r11, r0, #0xFF000000      ; extract the fourth byte from the first value
+                AND     r10, r1, #0xFF000000      ; extract the fourth byte from the second value
+                CMP     r11, r10                  ; compare
+                ITE     HI                        ; if r11 is (HI)gher than r10
+                SUBHI   r3, r11, r10              ; than r3 = r11 - r10
+                SUBLS   r3, r10, r11              ; else r3 = r10 - r11
+                LSR     r3, r3, #24               ; logical shift right by 24 positions
+                ADD     r5, r5, r3                ; add value (final result)
+
+                STR     r5, [r6, #8]              ; store result
+
+                POP     {r0-r12, PC}
                 ENDP
 
 

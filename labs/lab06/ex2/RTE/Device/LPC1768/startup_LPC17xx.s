@@ -125,53 +125,49 @@ CRP_Key         DCD     0xFFFFFFFF
 Reset_Handler   PROC
                 EXPORT  Reset_Handler             [WEAK]
 
-				;MOV r0, #0x7A30458D		; starting value
-				MOV r0, #0x458D				; MOV + MOVT to move 32 bit immediate
-				MOVT r0, #0x7A30
-				
-				;MOV r1, #0xC3159EAA		; starting value
-				MOV r1, #0x9EAA				; MOV + MOVT to move 32 bit immediate
-				MOVT r1, #0xC315
-				
-				;MOV r4, #0x491B591D		; comparison value
-				MOV r4, #0x591D				; MOV + MOVT to move 32 bit immediate
-				MOVT r4, #0x491B
-				
-				AND r11, r0, #0x000000FF	; extract the first byte from the first value
-				AND r12, r1, #0x000000FF	; extract the first byte from the second value
-				CMP r11, r12				; compare
-				ITE HI						; if r11 is (HI)gher than r12
-				SUBHI r5, r11, r12			; than r2 = r11 - r12
-				SUBLS r5, r12, r11			; else r2 = r12 - r11
+                ;#0x7A30458D
+                MOV     r0, #0x458D               ; write 0x458D to R0[15:0]
+                MOVT    r0, #0x7A30               ; write 0x7A30 to R0[31:16]
+                
+                ;#0xC3159EAA
+                MOV     r1, #0x9EAA               ; write 0x9EAA to R1[15:0]
+                MOVT    r1, #0xC315               ; write 0xC315 to R1[31:16]
 
-				AND r11, r0, #0x0000FF00	; extract the second byte from the first value
-				AND r12, r1, #0x0000FF00	; extract the second byte from the second value
-				CMP r11, r12				; compare
-				ITE HI						; if r11 is (HI)gher than r12
-				SUBHI r3, r11, r12			; than r2 = r11 - r12
-				SUBLS r3, r12, r11			; else r2 = r12 - r11
-				LSR r3, r3, #8				; logical shift right by 8 positions
-				ADD r5, r5, r3				; add value
+                AND     r11, r0, #0x000000FF      ; extract the first byte from the first value
+                AND     r12, r1, #0x000000FF      ; extract the first byte from the second value
+                CMP     r11, r12                  ; compare
+                ITE     HI                        ; if r11 is (HI)gher than r12
+                SUBHI   r5, r11, r12              ; than r5 = r11 - r12
+                SUBLS   r5, r12, r11              ; else r5 = r12 - r11
 
-				AND r11, r0, #0x00FF0000	; extract the third byte from the first value
-				AND r12, r1, #0x00FF0000	; extract the third byte from the second value
-				CMP r11, r12				; compare
-				ITE HI						; if r11 is (HI)gher than r12
-				SUBHI r3, r11, r12			; than r2 = r11 - r12
-				SUBLS r3, r12, r11			; else r2 = r12 - r11
-				LSR r3, r3, #16				; logical shift right by 16 positions
-				ADD r5, r5, r3				; add value
-				
-				AND r11, r0, #0xFF000000	; extract the fourth byte from the first value
-				AND r12, r1, #0xFF000000	; extract the fourth byte from the second value
-				CMP r11, r12				; compare
-				ITE HI						; if r11 is (HI)gher than r12
-				SUBHI r3, r11, r12			; than r2 = r11 - r12
-				SUBLS r3, r12, r11			; else r2 = r12 - r11
-				LSR r3, r3, #24				; logical shift right by 24 positions
-				ADD r5, r5, r3				; add value (final result)
+                AND     r11, r0, #0x0000FF00      ; extract the second byte from the first value
+                AND     r12, r1, #0x0000FF00      ; extract the second byte from the second value
+                CMP     r11, r12                  ; compare
+                ITE     HI                        ; if r11 is (HI)gher than r12
+                SUBHI   r3, r11, r12              ; than r3 = r11 - r12
+                SUBLS   r3, r12, r11              ; else r3 = r12 - r11
+                LSR     r3, r3, #8                ; logical shift right by 8 positions
+                ADD     r5, r5, r3                ; add value
 
-stop			B stop
+                AND     r11, r0, #0x00FF0000      ; extract the third byte from the first value
+                AND     r12, r1, #0x00FF0000      ; extract the third byte from the second value
+                CMP     r11, r12                  ; compare
+                ITE     HI                        ; if r11 is (HI)gher than r12
+                SUBHI   r3, r11, r12              ; than r3 = r11 - r12
+                SUBLS   r3, r12, r11              ; else r3 = r12 - r11
+                LSR     r3, r3, #16               ; logical shift right by 16 positions
+                ADD     r5, r5, r3                ; add value
+
+                AND     r11, r0, #0xFF000000      ; extract the fourth byte from the first value
+                AND     r12, r1, #0xFF000000      ; extract the fourth byte from the second value
+                CMP     r11, r12                  ; compare
+                ITE     HI                        ; if r11 is (HI)gher than r12
+                SUBHI   r3, r11, r12              ; than r3 = r11 - r12
+                SUBLS   r3, r12, r11              ; else r3 = r12 - r11
+                LSR     r3, r3, #24               ; logical shift right by 24 positions
+                ADD     r5, r5, r3                ; add value (final result)
+
+stop            B       stop
                 ENDP
 
 

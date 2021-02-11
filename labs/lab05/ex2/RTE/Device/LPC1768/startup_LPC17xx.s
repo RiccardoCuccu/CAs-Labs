@@ -116,7 +116,7 @@ __Vectors       DCD     __initial_sp              ; Top of Stack
 CRP_Key         DCD     0xFFFFFFFF
                 ENDIF
 
-Reserved_Size   EQU     0x0000001A					; 26 byte
+Reserved_Size   EQU     0x0000001A                  ; 26 byte
 
                 AREA    exercise, DATA, READWRITE
 Reserved_Mem    SPACE   Reserved_Size
@@ -128,54 +128,54 @@ Reserved_Mem    SPACE   Reserved_Size
 
 Reset_Handler   PROC
                 EXPORT  Reset_Handler             [WEAK]
-					
-				MOV r0, #1
-				MOV r1, #1
-				ADD r2, r1, r0				; Fibonacci sequence
-				ADD r3, r2, r1
-				ADD r4, r3, r2
-				ADD r5, r4, r3
-				ADD r6, r5, r4
-				ADD r7, r6, r5
-				ADD r8, r7, r6
-				ADD r9, r8, r7
-				ADD r10, r9, r8
-				ADD r11, r10, r9
-				ADD r12, r11, r10
-				
-				LDR r14, =Reserved_Mem		; Address of reserved memory
-				
-				STRB r0, [r14]				; Pre-indexed addressing
-				STRB r1, [r14, #1]
-				STRB r2, [r14, #2]
-				STRB r3, [r14, #3]
-				STRB r4, [r14, #4]
-				STRB r5, [r14, #5]
-				STRB r6, [r14, #6]
-				STRB r7, [r14, #7]
-				STRB r8, [r14, #8]
-				STRB r9, [r14, #9]
-				STRB r10, [r14, #10]
-				STRB r11, [r14, #11]
-				STRB r12, [r14, #12]
-				
-				ADD r14, r14, #13
-				
-				STRB r12, [r14], #1			; Post-indexed addressing
-				STRB r11, [r14], #1
-				STRB r10, [r14], #1
-				STRB r9, [r14], #1
-				STRB r8, [r14], #1
-				STRB r7, [r14], #1
-				STRB r6, [r14], #1
-				STRB r5, [r14], #1
-				STRB r4, [r14], #1
-				STRB r3, [r14], #1
-				STRB r2, [r14], #1
-				STRB r1, [r14], #1
-				STRB r0, [r14], #1
 
-stop			B stop
+                MOV     r0, #1
+                MOV     r1, #1
+                ADD     r2, r1, r0                ; Fibonacci sequence
+                ADD     r3, r2, r1
+                ADD     r4, r3, r2
+                ADD     r5, r4, r3
+                ADD     r6, r5, r4
+                ADD     r7, r6, r5
+                ADD     r8, r7, r6
+                ADD     r9, r8, r7
+                ADD     r10, r9, r8
+                ADD     r11, r10, r9
+                ADD     r12, r11, r10
+
+                LDR     r14, =Reserved_Mem        ; load address of reserved memory
+
+                STRB    r0, [r14]                 ; pre-indexed addressing
+                STRB    r1, [r14, #1]
+                STRB    r2, [r14, #2]
+                STRB    r3, [r14, #3]
+                STRB    r4, [r14, #4]
+                STRB    r5, [r14, #5]
+                STRB    r6, [r14, #6]
+                STRB    r7, [r14, #7]
+                STRB    r8, [r14, #8]
+                STRB    r9, [r14, #9]
+                STRB    r10, [r14, #10]
+                STRB    r11, [r14, #11]
+                STRB    r12, [r14, #12]
+
+                ADD     r14, r14, #13
+
+                STRB    r12, [r14], #1            ; post-indexed addressing
+                STRB    r11, [r14], #1
+                STRB    r10, [r14], #1
+                STRB    r9, [r14], #1
+                STRB    r8, [r14], #1
+                STRB    r7, [r14], #1
+                STRB    r6, [r14], #1
+                STRB    r5, [r14], #1
+                STRB    r4, [r14], #1
+                STRB    r3, [r14], #1
+                STRB    r2, [r14], #1
+                STRB    r1, [r14], #1
+                STRB    r0, [r14], #1
+
+stop            B       stop
                 ENDP
 
 

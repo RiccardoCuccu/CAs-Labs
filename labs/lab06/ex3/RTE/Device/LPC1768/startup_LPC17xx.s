@@ -125,56 +125,52 @@ CRP_Key         DCD     0xFFFFFFFF
 Reset_Handler   PROC
                 EXPORT  Reset_Handler             [WEAK]
 
-				;MOV r0, #0x7A30458D		; starting value
-				MOV r0, #0x458D				; MOV + MOVT to move 32 bit immediate
-				MOVT r0, #0x7A30
-				
-				;MOV r1, #0xC3159EAA		; starting value
-				MOV r1, #0x9EAA				; MOV + MOVT to move 32 bit immediate
-				MOVT r1, #0xC315
-				
-				;MOV r4, #0x491B591D		; comparison value
-				MOV r4, #0x591D				; MOV + MOVT to move 32 bit immediate
-				MOVT r4, #0x491B
-				
-				AND r11, r0, #0x000000FF	; extract the lower halfword (lower) from the first value
-				AND r10, r0, #0x0000FF00	; extract the lower halfword (higher) from the first value
-				ORR r11, r11, r10			; merge lower halfword
-				AND r10, r11, #0x00008000	; extract the sign bit from the first lower halfword
-				CMP r10, #0x00008000		; compare
-				BNE low_half_first			; branch if positive
-				ORR r11, r11, #0x00FF0000	; extend sign (lower) if negative
-				ORR r11, r11, #0xFF000000	; extend sign (higher) if negative
+                ;#0x7A30458D
+                MOV     r0, #0x458D               ; write 0x458D to R0[15:0]
+                MOVT    r0, #0x7A30               ; write 0x7A30 to R0[31:16]
+
+                ;#0xC3159EAA
+                MOV     r1, #0x9EAA               ; write 0x9EAA to R1[15:0]
+                MOVT    r1, #0xC315               ; write 0xC315 to R1[31:16]
+
+                AND     r11, r0, #0x000000FF      ; extract the lower halfword (lower) from the first value
+                AND     r10, r0, #0x0000FF00      ; extract the lower halfword (higher) from the first value
+                ORR     r11, r11, r10             ; merge lower halfword
+                AND     r10, r11, #0x00008000     ; extract the sign bit from the first lower halfword
+                CMP     r10, #0x00008000          ; compare
+                BNE     low_half_first            ; branch if positive
+                ORR     r11, r11, #0x00FF0000     ; extend sign (lower) if negative
+                ORR     r11, r11, #0xFF000000     ; extend sign (higher) if negative
+
 low_half_first
-				
-				AND r12, r1, #0x000000FF	; extract the lower halfword (lower) from the second value
-				AND r10, r1, #0x0000FF00	; extract the lower halfword (higher) from the second value
-				ORR r12, r12, r10			; merge lower halfword
-				AND r10, r12, #0x00008000	; extract the sign bit from the second lower halfword
-				CMP r10, #0x00008000		; compare
-				BNE low_half_second
-				ORR r12, r12, #0x00FF0000	; extend sign (lower) if negative
-				ORR r12, r12, #0xFF000000	; extend sign (higher) if negative
-low_half_second				
-				
-				MUL r2, r11, r12			; moltiplication of lower halfwords
-				
-				AND r11, r0, #0x00FF0000	; extract the higher halfword (lower) from the first value
-				AND r10, r0, #0xFF000000	; extract the higher halfword (higher) from the first value
-				ORR r11, r11, r10			; merge higher halfword
-				ASR r11, r11, #16			; arithmetic shift right by 16 bit
-				
-				AND r12, r1, #0x00FF0000	; extract the higher halfword (lower) from the second value
-				AND r10, r1, #0xFF000000	; extract the higher halfword (higher) from the second value
-				ORR r12, r12, r10			; merge higher halfword
-				ASR r12, r12, #16			; arithmetic shift right by 16 bit			
-				
-				MUL r3, r11, r12			; moltiplication of higher halfwords
+                AND     r12, r1, #0x000000FF      ; extract the lower halfword (lower) from the second value
+                AND     r10, r1, #0x0000FF00      ; extract the lower halfword (higher) from the second value
+                ORR     r12, r12, r10             ; merge lower halfword
+                AND     r10, r12, #0x00008000     ; extract the sign bit from the second lower halfword
+                CMP     r10, #0x00008000          ; compare
+                BNE     low_half_second           ; branch if positive
+                ORR     r12, r12, #0x00FF0000     ; extend sign (lower) if negative
+                ORR     r12, r12, #0xFF000000     ; extend sign (higher) if negative
 
-				ADD r6, r2, r3				; SMUAD
-				SUB r7, r2, r3				; SMUSD
+low_half_second
+                MUL     r2, r11, r12              ; moltiplication of lower halfwords
 
-stop			B stop
+                AND     r11, r0, #0x00FF0000      ; extract the higher halfword (lower) from the first value
+                AND     r10, r0, #0xFF000000      ; extract the higher halfword (higher) from the first value
+                ORR     r11, r11, r10             ; merge higher halfword
+                ASR     r11, r11, #16             ; arithmetic shift right by 16 bit
+
+                AND     r12, r1, #0x00FF0000      ; extract the higher halfword (lower) from the second value
+                AND     r10, r1, #0xFF000000      ; extract the higher halfword (higher) from the second value
+                ORR     r12, r12, r10             ; merge higher halfword
+                ASR     r12, r12, #16             ; arithmetic shift right by 16 bit          
+
+                MUL     r3, r11, r12              ; moltiplication of higher halfwords
+
+                ADD     r6, r2, r3                ; SMUAD
+                SUB     r7, r2, r3                ; SMUSD
+
+stop            B       stop
                 ENDP
 
 

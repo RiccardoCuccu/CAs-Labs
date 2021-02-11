@@ -124,13 +124,13 @@ CRP_Key         DCD     0xFFFFFFFF
 
 Reset_Handler   PROC
                 EXPORT  Reset_Handler             [WEAK]
-                
-				EXTERN intHypotenuse
-				MOV r0, #2 					; first parameter
-				MOV r1, #3	 				; second parameter
-				BL intHypotenuse
-				
-stop			B stop
+
+                EXTERN  intHypotenuse
+                MOV     r0, #2                    ; first parameter
+                MOV     r1, #3                    ; second parameter
+                BL      intHypotenuse
+
+stop            B stop
                 ENDP
 
 

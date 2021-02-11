@@ -5,7 +5,7 @@
 ** Last Version:        V1.01
 ** Descriptions:        Power on/off the LEDs acting on the FIOSET and FIOCLR register
 ** Correlated files:    
-**--------------------------------------------------------------------------------------------------------       
+**--------------------------------------------------------------------------------------------------------
 *********************************************************************************************************/
 
 #include "LPC17xx.h"
@@ -17,16 +17,16 @@
 
 void led4and11_On(void)
 {
-	LPC_GPIO2->FIOSET |= 0x00000081;
+    LPC_GPIO2->FIOSET |= 0x00000081;
 }
 
 void led4_Off(void)
 {
-	LPC_GPIO2->FIOCLR |= 0x00000001;
+    LPC_GPIO2->FIOCLR |= 0x00000001;
 }
 
 void ledEvenOn_OddOf(void)
 {
-	LPC_GPIO2->FIOSET = 0x000000AA;
-	LPC_GPIO2->FIOCLR = 0x00000055;
+    LPC_GPIO2->FIOSET = 0x000000AA;
+    LPC_GPIO2->FIOCLR = 0x00000055;
 }

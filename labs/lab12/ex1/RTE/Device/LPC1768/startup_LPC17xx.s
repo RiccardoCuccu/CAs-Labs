@@ -115,106 +115,106 @@ __Vectors       DCD     __initial_sp              ; Top of Stack
                 AREA    |.ARM.__at_0x02FC|, CODE, READONLY
 CRP_Key         DCD     0xFFFFFFFF
                 ENDIF
-				
-				AREA inputData, DATA, READONLY
-N		   		EQU     0x0000001E					; 30 elements
-M		   		EQU     0x00000004					; 4 elements
 
-i				RN		 6
-temp_price_list RN		 7
-temp_item_list	RN		 8
-partial_cost	RN		 9
-total_cost		RN		10
-value_catalogue	RN		11
-value_list		RN		12
-					
-Price_list 		DCD 0x004, 20, 0x006, 15, 0x007, 10, 0x00A, 5, 0x010, 8
-				DCD 0x012, 7, 0x016, 22, 0x017, 17, 0x018, 38, 0x01A, 22
-				DCD 0x01B, 34, 0x01E, 11, 0x022, 3, 0x023, 9, 0x025, 40
-				DCD 0x027, 12, 0x028, 11, 0x02C, 45, 0x02D, 10, 0x031, 40
-				DCD 0x033, 45, 0x035, 9, 0x036, 11, 0x039, 12, 0x03C, 19
-				DCD 0x03E, 1, 0x041, 20, 0x042, 30, 0x045, 12, 0x047, 7
+                AREA inputData, DATA, READONLY
+N               EQU     0x0000001E                ; 30 elements
+M               EQU     0x00000004                ; 4 elements
 
-Item_list		DCD 0x022, 4, 0x006, 1, 0x03E, 10, 0x017, 2		; total cost is 71 (0x47)
+i               RN       6
+temp_price_list RN       7
+temp_item_list  RN       8
+partial_cost    RN       9
+total_cost      RN      10
+value_catalogue RN      11
+value_list      RN      12
+
+Price_list      DCD 0x004, 20, 0x006, 15, 0x007, 10, 0x00A, 5, 0x010, 8
+                DCD 0x012, 7, 0x016, 22, 0x017, 17, 0x018, 38, 0x01A, 22
+                DCD 0x01B, 34, 0x01E, 11, 0x022, 3, 0x023, 9, 0x025, 40
+                DCD 0x027, 12, 0x028, 11, 0x02C, 45, 0x02D, 10, 0x031, 40
+                DCD 0x033, 45, 0x035, 9, 0x036, 11, 0x039, 12, 0x03C, 19
+                DCD 0x03E, 1, 0x041, 20, 0x042, 30, 0x045, 12, 0x047, 7
+
+Item_list       DCD 0x022, 4, 0x006, 1, 0x03E, 10, 0x017, 2     ; total cost is 71 (0x47)
 
 
                 AREA    |.text|, CODE, READONLY
-
 
 ; Reset Handler
 
 Reset_Handler   PROC
                 EXPORT  Reset_Handler             [WEAK]
-                
-				; item 1
-				;EXTERN sequentialSearch
-				LDR r0, =Price_list
-				LDR r1, =Item_list
-				BL sequentialSearch
-				
-				; remove comments to solve item 2
-				;LDR r0, =Price_list
-				;LDR r1, =Item_list 
-				;BL binarySearch
-				
-				; remove comments to solve item 3
-				;IMPORT  SystemInit
+
+                ; item 1
+                ;EXTERN  sequentialSearch
+                LDR     r0, =Price_list
+                LDR     r1, =Item_list
+                BL      sequentialSearch
+
+                ; remove comments to solve item 2
+                ;LDR     r0, =Price_list
+                ;LDR     r1, =Item_list 
+                ;BL      binarySearch
+
+                ; remove comments to solve item 3
+                ;IMPORT  SystemInit
                 ;IMPORT  __main
                 ;LDR     R0, =SystemInit
                 ;BLX     R0
                 ;LDR     R0, =__main
                 ;BX      R0
-stop			B stop
+
+stop            B       stop
                 ENDP
 
 ;/******************** Sequential Search ********************/
 
 sequentialSearch PROC
-				PUSH {LR}				
-				MOV temp_price_list, r0						; copy the address of Price_list
-				MOV temp_item_list, r1						; copy the address of Item_list
-				MOV i, #0									; initialize i
-				MOV partial_cost, #0						; initialize partial_cost
-				MOV total_cost, #0							; initialize total_cost				
-				BL outside_seq_while						; call the ouside while
-				MOV r0, total_cost							; store the result into r0
-				POP {PC}
-				ENDP
+                PUSH    {LR}               
+                MOV     temp_price_list, r0                     ; copy the address of Price_list
+                MOV     temp_item_list, r1                      ; copy the address of Item_list
+                MOV     i, #0                                   ; initialize i
+                MOV     partial_cost, #0                        ; initialize partial_cost
+                MOV     total_cost, #0                          ; initialize total_cost
+                BL      outside_seq_while                       ; call the ouside while
+                MOV     r0, total_cost                          ; store the result into r0
+                POP     {PC}
+                ENDP
 
 
 outside_seq_while PROC
-				PUSH {LR}
-new_item_seq	
-				CMP i, #M									; check if the loop has ended
-				BEQ end_outside_seq
-				LDR value_list, [temp_item_list]			; load the code of an item from Item_list
-				BL inside_seq_while							; call the inside while
-				MOV temp_price_list, r0						; reset the address of Price_list
-				ADD temp_item_list, temp_item_list, #8		; updates the address for the new item
-				ADD i, i, #1								; increment index i
-				B new_item_seq
+                PUSH    {LR}
+new_item_seq    
+                CMP     i, #M                                   ; check if the loop has ended
+                BEQ     end_outside_seq
+                LDR     value_list, [temp_item_list]            ; load the code of an item from Item_list
+                BL      inside_seq_while                        ; call the inside while
+                MOV     temp_price_list, r0                     ; reset the address of Price_list
+                ADD     temp_item_list, temp_item_list, #8      ; updates the address for the new item
+                ADD     i, i, #1                                ; increment index i
+                B       new_item_seq
 end_outside_seq
-				POP {PC}
-				ENDP
+                POP     {PC}
+                ENDP
 
 
 inside_seq_while PROC
-				PUSH {LR}	
+                PUSH    {LR}
 compare_element
-				LDR value_catalogue, [temp_price_list]		; load the code of an item from Price_list
-				CMP	value_catalogue, value_list				; compare the codes of the two elements
-				BNE increment_element
-				LDR partial_cost, [temp_price_list, #4]		; load the cost of the single item
-				LDR r4, [temp_item_list, #4]				; load the number of items required
-				MUL partial_cost, partial_cost, r4			; computes the partial cost
-				ADD total_cost, total_cost, partial_cost	; update total cost
-				B end_inside_seq			
+                LDR     value_catalogue, [temp_price_list]      ; load the code of an item from Price_list
+                CMP     value_catalogue, value_list             ; compare the codes of the two elements
+                BNE     increment_element
+                LDR     partial_cost, [temp_price_list, #4]     ; load the cost of the single item
+                LDR     r4, [temp_item_list, #4]                ; load the number of items required
+                MUL     partial_cost, partial_cost, r4          ; computes the partial cost
+                ADD     total_cost, total_cost, partial_cost    ; update total cost
+                B       end_inside_seq
 increment_element
-				ADD temp_price_list, temp_price_list, #8	; updates the address for the new item
-				B compare_element
-end_inside_seq				
-				POP {PC}
-				ENDP
+                ADD     temp_price_list, temp_price_list, #8    ; updates the address for the new item
+                B       compare_element
+end_inside_seq
+                POP     {PC}
+                ENDP
 
 ; Dummy Exception Handlers (infinite loops which can be modified)
 

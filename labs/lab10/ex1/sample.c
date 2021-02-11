@@ -19,11 +19,8 @@
  *----------------------------------------------------------------------------*/
 int main (void)
 {  
-  LED_init();														/* LED Initialization                 */
-  BUTTON_init();												/* BUTTON Initialization              */
-	LED_On(3);														/* Power on LED 8     								*/
-	
-  while (1) {														/* Loop forever                       */	
-  }
-
+    LED_init();                         /* LED Initialization                 */
+    BUTTON_init();                      /* BUTTON Initialization              */
+    LED_On(3);                          /* Power on LED 8                     */
+    while (1) {}                        /* Loop forever                       */
 }

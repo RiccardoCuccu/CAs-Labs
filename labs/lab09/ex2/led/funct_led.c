@@ -17,10 +17,10 @@
 
 void led4and11_On(void)
 {
-	LPC_GPIO2->FIOSET |= 0x00000081;
+    LPC_GPIO2->FIOSET |= 0x00000081;
 }
 
 void led4_Off(void)
 {
-	LPC_GPIO2->FIOCLR |= 0x00000001;
+    LPC_GPIO2->FIOCLR |= 0x00000001;
 }

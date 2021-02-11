@@ -116,7 +116,6 @@ __Vectors       DCD     __initial_sp              ; Top of Stack
 CRP_Key         DCD     0xFFFFFFFF
                 ENDIF
 
-
                 AREA    |.text|, CODE, READONLY
 
 
@@ -125,38 +124,34 @@ CRP_Key         DCD     0xFFFFFFFF
 Reset_Handler   PROC
                 EXPORT  Reset_Handler             [WEAK]
 
-				;MOV r0, #0x7A30458D		; starting value
-				MOV r0, #0x458D				; MOV + MOVT to move 32 bit immediate
-				MOVT r0, #0x7A30
-				
-				;MOV r1, #0xC3159EAA		; starting value
-				MOV r1, #0x9EAA				; MOV + MOVT to move 32 bit immediate
-				MOVT r1, #0xC315
-				
-				;MOV r4, #0x3D45E337		; comparison value
-				MOV r5, #0xE337				; MOV + MOVT to move 32 bit immediate
-				MOVT r5, #0x3D45
-				
-				AND r12, r0, #0x000000FF	; extract the first byte from the first value
-				ADD	r12, r12, r1			; add it with the second value
-				AND	r4, r12, #0x000000FF	; save the partial result
-				
-				AND r12, r0, #0x0000FF00	; extract the second byte from the first value
-				ADD	r12, r12, r1			; add it with the second value
-				AND	r11, r12, #0x0000FF00	; extract the partial result
-				ADD r4, r4, r11				; merge partial results
-				
-				AND r12, r0, #0x00FF0000	; extract the third byte from the first value
-				ADD	r12, r12, r1			; add it with the second value
-				AND	r11, r12, #0x00FF0000	; extract the partial result
-				ADD r4, r4, r11				; merge partial results
-				
-				AND r12, r0, #0xFF000000	; extract fourth byte from the first value
-				ADD	r12, r12, r1			; add it with the second value
-				AND	r11, r12, #0xFF000000	; extract the partial result
-				ADD r4, r4, r11				; merge partial results
+                ;#0x7A30458D
+                MOV     r0, #0x458D               ; write 0x458D to R0[15:0]
+                MOVT    r0, #0x7A30               ; write 0x7A30 to R0[31:16]
 
-stop			B stop
+                ;#0xC3159EAA
+                MOV     r1, #0x9EAA               ; write 0x9EAA to R1[15:0]
+                MOVT    r1, #0xC315               ; write 0xC315 to R1[31:16]
+
+                AND     r12, r0, #0x000000FF      ; extract the first byte from the first value
+                ADD     r12, r12, r1              ; add it with the second value
+                AND     r4, r12, #0x000000FF      ; save the partial result
+
+                AND     r12, r0, #0x0000FF00      ; extract the second byte from the first value
+                ADD     r12, r12, r1              ; add it with the second value
+                AND     r11, r12, #0x0000FF00     ; extract the partial result
+                ADD     r4, r4, r11               ; merge partial results
+
+                AND     r12, r0, #0x00FF0000      ; extract the third byte from the first value
+                ADD     r12, r12, r1              ; add it with the second value
+                AND     r11, r12, #0x00FF0000     ; extract the partial result
+                ADD     r4, r4, r11               ; merge partial results
+
+                AND     r12, r0, #0xFF000000      ; extract fourth byte from the first value
+                ADD     r12, r12, r1              ; add it with the second value
+                AND     r11, r12, #0xFF000000     ; extract the partial result
+                ADD     r4, r4, r11               ; merge partial results
+
+stop            B       stop
                 ENDP
 
 
