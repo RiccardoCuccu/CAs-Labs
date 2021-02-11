@@ -1,109 +1,0 @@
-Dependencies for Project 'ex1', Target 'Target 1': (DO NOT MODIFY !)
-CompilerVersion: 5060750::V5.06 update 6 (build 750)::ARMCC
-F (.\sample.c)(0x5E4D4FFA)(--c99 --gnu -c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork --split_sections-I.\RTE\Device\LPC1768-I.\RTE\_Target_1-IC:\Users\Riccardo\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\Riccardo\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.6.0\Device\Include-D__UVISION_VERSION="529" -D_RTE_ -DLPC175x_6x-o .\objects\sample.o --omf_browse .\objects\sample.crf --depend .\objects\sample.d)
-I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5D9B348A)
-I (C:\Users\Riccardo\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.6.0\Device\Include\LPC17xx.h)(0x58493F92)
-I (C:\Users\Riccardo\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\core_cm3.h)(0x5D25F326)
-I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B3488)
-I (C:\Users\Riccardo\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_version.h)(0x5D25F326)
-I (C:\Users\Riccardo\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5D25F326)
-I (C:\Users\Riccardo\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5D25F326)
-I (C:\Users\Riccardo\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\mpu_armv7.h)(0x5C8FB044)
-I (C:\Users\Riccardo\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.6.0\Device\Include\system_LPC17xx.h)(0x58493F92)
-I (led/led.h)(0x5DE8DBDA)
-I (button/button.h)(0x5C096642)
-I (timer/timer.h)(0x5DF0CC5E)
-I (ADC_DAC/adc_dac.h)(0x5DF52A44)
-F (.\ADC_DAC\adc_dac.h)(0x5DF52A44)()
-F (.\ADC_DAC\IRQ_adc.c)(0x5DFCB409)(--c99 --gnu -c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork --split_sections-I.\RTE\Device\LPC1768-I.\RTE\_Target_1-IC:\Users\Riccardo\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\Riccardo\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.6.0\Device\Include-D__UVISION_VERSION="529" -D_RTE_ -DLPC175x_6x-o .\objects\irq_adc.o --omf_browse .\objects\irq_adc.crf --depend .\objects\irq_adc.d)
-I (C:\Users\Riccardo\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.6.0\Device\Include\lpc17xx.h)(0x58493F92)
-I (C:\Users\Riccardo\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\core_cm3.h)(0x5D25F326)
-I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B3488)
-I (C:\Users\Riccardo\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_version.h)(0x5D25F326)
-I (C:\Users\Riccardo\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5D25F326)
-I (C:\Users\Riccardo\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5D25F326)
-I (C:\Users\Riccardo\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\mpu_armv7.h)(0x5C8FB044)
-I (C:\Users\Riccardo\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.6.0\Device\Include\system_LPC17xx.h)(0x58493F92)
-I (ADC_DAC\adc_dac.h)(0x5DF52A44)
-F (.\ADC_DAC\lib_adc_dac.c)(0x5DF6C946)(--c99 --gnu -c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork --split_sections-I.\RTE\Device\LPC1768-I.\RTE\_Target_1-IC:\Users\Riccardo\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\Riccardo\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.6.0\Device\Include-D__UVISION_VERSION="529" -D_RTE_ -DLPC175x_6x-o .\objects\lib_adc_dac.o --omf_browse .\objects\lib_adc_dac.crf --depend .\objects\lib_adc_dac.d)
-I (C:\Users\Riccardo\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.6.0\Device\Include\lpc17xx.h)(0x58493F92)
-I (C:\Users\Riccardo\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\core_cm3.h)(0x5D25F326)
-I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B3488)
-I (C:\Users\Riccardo\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_version.h)(0x5D25F326)
-I (C:\Users\Riccardo\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5D25F326)
-I (C:\Users\Riccardo\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5D25F326)
-I (C:\Users\Riccardo\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\mpu_armv7.h)(0x5C8FB044)
-I (C:\Users\Riccardo\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.6.0\Device\Include\system_LPC17xx.h)(0x58493F92)
-I (ADC_DAC\adc_dac.h)(0x5DF52A44)
-F (.\led\led.h)(0x5DE8DBDA)()
-F (.\led\lib_led.c)(0x5DFCB2CA)(--c99 --gnu -c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork --split_sections-I.\RTE\Device\LPC1768-I.\RTE\_Target_1-IC:\Users\Riccardo\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\Riccardo\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.6.0\Device\Include-D__UVISION_VERSION="529" -D_RTE_ -DLPC175x_6x-o .\objects\lib_led.o --omf_browse .\objects\lib_led.crf --depend .\objects\lib_led.d)
-I (C:\Users\Riccardo\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.6.0\Device\Include\LPC17xx.h)(0x58493F92)
-I (C:\Users\Riccardo\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\core_cm3.h)(0x5D25F326)
-I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B3488)
-I (C:\Users\Riccardo\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_version.h)(0x5D25F326)
-I (C:\Users\Riccardo\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5D25F326)
-I (C:\Users\Riccardo\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5D25F326)
-I (C:\Users\Riccardo\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\mpu_armv7.h)(0x5C8FB044)
-I (C:\Users\Riccardo\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.6.0\Device\Include\system_LPC17xx.h)(0x58493F92)
-I (led\led.h)(0x5DE8DBDA)
-F (.\button\button.h)(0x5C096642)()
-F (.\button\IRQ_button.c)(0x5DFCB288)(--c99 --gnu -c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork --split_sections-I.\RTE\Device\LPC1768-I.\RTE\_Target_1-IC:\Users\Riccardo\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\Riccardo\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.6.0\Device\Include-D__UVISION_VERSION="529" -D_RTE_ -DLPC175x_6x-o .\objects\irq_button.o --omf_browse .\objects\irq_button.crf --depend .\objects\irq_button.d)
-I (button\button.h)(0x5C096642)
-I (C:\Users\Riccardo\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.6.0\Device\Include\lpc17xx.h)(0x58493F92)
-I (C:\Users\Riccardo\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\core_cm3.h)(0x5D25F326)
-I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B3488)
-I (C:\Users\Riccardo\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_version.h)(0x5D25F326)
-I (C:\Users\Riccardo\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5D25F326)
-I (C:\Users\Riccardo\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5D25F326)
-I (C:\Users\Riccardo\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\mpu_armv7.h)(0x5C8FB044)
-I (C:\Users\Riccardo\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.6.0\Device\Include\system_LPC17xx.h)(0x58493F92)
-F (.\button\lib_button.c)(0x5DE91652)(--c99 --gnu -c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork --split_sections-I.\RTE\Device\LPC1768-I.\RTE\_Target_1-IC:\Users\Riccardo\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\Riccardo\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.6.0\Device\Include-D__UVISION_VERSION="529" -D_RTE_ -DLPC175x_6x-o .\objects\lib_button.o --omf_browse .\objects\lib_button.crf --depend .\objects\lib_button.d)
-I (button\button.h)(0x5C096642)
-I (C:\Users\Riccardo\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.6.0\Device\Include\lpc17xx.h)(0x58493F92)
-I (C:\Users\Riccardo\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\core_cm3.h)(0x5D25F326)
-I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B3488)
-I (C:\Users\Riccardo\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_version.h)(0x5D25F326)
-I (C:\Users\Riccardo\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5D25F326)
-I (C:\Users\Riccardo\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5D25F326)
-I (C:\Users\Riccardo\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\mpu_armv7.h)(0x5C8FB044)
-I (C:\Users\Riccardo\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.6.0\Device\Include\system_LPC17xx.h)(0x58493F92)
-F (.\timer\IRQ_timer.c)(0x5DFCB33E)(--c99 --gnu -c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork --split_sections-I.\RTE\Device\LPC1768-I.\RTE\_Target_1-IC:\Users\Riccardo\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\Riccardo\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.6.0\Device\Include-D__UVISION_VERSION="529" -D_RTE_ -DLPC175x_6x-o .\objects\irq_timer.o --omf_browse .\objects\irq_timer.crf --depend .\objects\irq_timer.d)
-I (C:\Users\Riccardo\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.6.0\Device\Include\lpc17xx.h)(0x58493F92)
-I (C:\Users\Riccardo\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\core_cm3.h)(0x5D25F326)
-I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B3488)
-I (C:\Users\Riccardo\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_version.h)(0x5D25F326)
-I (C:\Users\Riccardo\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5D25F326)
-I (C:\Users\Riccardo\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5D25F326)
-I (C:\Users\Riccardo\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\mpu_armv7.h)(0x5C8FB044)
-I (C:\Users\Riccardo\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.6.0\Device\Include\system_LPC17xx.h)(0x58493F92)
-I (timer\timer.h)(0x5DF0CC5E)
-F (.\timer\lib_timer.c)(0x5DF525B0)(--c99 --gnu -c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork --split_sections-I.\RTE\Device\LPC1768-I.\RTE\_Target_1-IC:\Users\Riccardo\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\Riccardo\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.6.0\Device\Include-D__UVISION_VERSION="529" -D_RTE_ -DLPC175x_6x-o .\objects\lib_timer.o --omf_browse .\objects\lib_timer.crf --depend .\objects\lib_timer.d)
-I (C:\Users\Riccardo\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.6.0\Device\Include\lpc17xx.h)(0x58493F92)
-I (C:\Users\Riccardo\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\core_cm3.h)(0x5D25F326)
-I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B3488)
-I (C:\Users\Riccardo\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_version.h)(0x5D25F326)
-I (C:\Users\Riccardo\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5D25F326)
-I (C:\Users\Riccardo\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5D25F326)
-I (C:\Users\Riccardo\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\mpu_armv7.h)(0x5C8FB044)
-I (C:\Users\Riccardo\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.6.0\Device\Include\system_LPC17xx.h)(0x58493F92)
-I (timer\timer.h)(0x5DF0CC5E)
-F (.\timer\timer.h)(0x5DF0CC5E)()
-F (C:\Users\Riccardo\AppData\Local\Arm\Packs\Keil\ARM_Compiler\1.6.2\Source\retarget_io.c)(0x584E8C2E)(--c99 --gnu -c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork --split_sections-I.\RTE\Device\LPC1768-I.\RTE\_Target_1-IC:\Users\Riccardo\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\Riccardo\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.6.0\Device\Include-D__UVISION_VERSION="529" -D_RTE_ -DLPC175x_6x-o .\objects\retarget_io.o --omf_browse .\objects\retarget_io.crf --depend .\objects\retarget_io.d)
-I (D:\Program Files\Keil_v5\ARM\ARMCC\include\string.h)(0x5D9B3488)
-I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B3488)
-I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5D9B348A)
-I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x5D9B348A)
-I (D:\Program Files\Keil_v5\ARM\ARMCC\include\assert.h)(0x5D9B3482)
-I (D:\Program Files\Keil_v5\ARM\ARMCC\include\rt_sys.h)(0x5D9B3488)
-I (.\RTE\_Target_1\RTE_Components.h)(0x5E4D2167)
-F (RTE\Device\LPC1768\RTE_Device.h)(0x5D5BE3CA)()
-F (RTE\Device\LPC1768\startup_LPC17xx.s)(0x5E4E4F7E)(--cpu Cortex-M3 --pd "__EVAL SETA 1" -g --apcs=interwork -I.\RTE\Device\LPC1768-I.\RTE\_Target_1-IC:\Users\Riccardo\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\Riccardo\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.6.0\Device\Include--pd "__UVISION_VERSION SETA 529" --pd "_RTE_ SETA 1" --pd "LPC175x_6x SETA 1"--list .\listings\startup_lpc17xx.lst --xref -o .\objects\startup_lpc17xx.o --depend .\objects\startup_lpc17xx.d)
-F (RTE\Device\LPC1768\system_LPC17xx.c)(0x58493F92)(--c99 --gnu -c --cpu Cortex-M3 -D__EVAL -g -O0 --apcs=interwork --split_sections-I.\RTE\Device\LPC1768-I.\RTE\_Target_1-IC:\Users\Riccardo\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include-IC:\Users\Riccardo\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.6.0\Device\Include-D__UVISION_VERSION="529" -D_RTE_ -DLPC175x_6x-o .\objects\system_lpc17xx.o --omf_browse .\objects\system_lpc17xx.crf --depend .\objects\system_lpc17xx.d)
-I (D:\Program Files\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B3488)
-I (C:\Users\Riccardo\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.6.0\Device\Include\LPC17xx.h)(0x58493F92)
-I (C:\Users\Riccardo\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\core_cm3.h)(0x5D25F326)
-I (C:\Users\Riccardo\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_version.h)(0x5D25F326)
-I (C:\Users\Riccardo\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5D25F326)
-I (C:\Users\Riccardo\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5D25F326)
-I (C:\Users\Riccardo\AppData\Local\Arm\Packs\ARM\CMSIS\5.6.0\CMSIS\Core\Include\mpu_armv7.h)(0x5C8FB044)
-I (C:\Users\Riccardo\AppData\Local\Arm\Packs\Keil\LPC1700_DFP\2.6.0\Device\Include\system_LPC17xx.h)(0x58493F92)
