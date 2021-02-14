@@ -57,4 +57,6 @@ Write appropriate instructions/functions in C for:
     - store in a variable the minimum between 255 and the value returned by the `iterativeCollatz` subroutine;
     - display the binary representation of the value of the variable on the led 4-11 (the led 11 corresponds to the least significant bit).
 
+Passing as input the value of the timer counter, the output value has to be the same as the one computed by: https://www.dcode.fr/collatz-conjecture
+
 [//]: # (https://tex-image-link-generator.herokuapp.com/)
