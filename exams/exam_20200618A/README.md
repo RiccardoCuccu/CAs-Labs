@@ -51,13 +51,81 @@ Reset_Handler PROC
         MOV   r2, #5          ; number of values in the array
                               ; the grade of the polynomial is r2 - 1
         BL    initializeMatrix
-        
         [...]
 stop    B     stop
         ENDP
 ```
+
+In the example, the block of memory `matrix` after the subroutine call is:
+
+<p align="center">
+  <img src="./fig/phase1.png" width="70%">
+</p>
+
 ### Specification 2 (8 points)
+Write a `computeDifferences` subroutine that receives in input:
+1) address of the matrix (with values set by the `initializeMatrix` subroutine)
+2) *n+1*: grade of the polynomial + 1
+
+The subroutine implements the phase 2 of the algorithm of divided differences. It does not return any value.
+
+Optional: the subroutine checks the overflow when computing the differences.<br/>
+If the result of the subtraction is positive but it is too large to fit in 32 bits, then it is replaced with the greatest positive value that you can store in 32 bits.<br/>
+If the result of the subtraction is negative but it is too small to fit in 32 bits, then it is replaced with the smallest negative value that you can store in 32 bits.
+
+Max score without the overflow check: 6 points.<br/>
+Max score with the overflow check: 8 points.
+
+Example of calling code
+```
+        AREA  |.text|, CODE, READONLY
+Reset_Handler PROC
+        [...]
+        LDR   r0, =matrix
+        MOV   r1, #5
+        BL    computeDifferences
+        [...]
+stop    B     stop
+        ENDP
+```
+
+In the example, the block of memory `matrix` after the subroutine call is:
+
+<p align="center">
+  <img src="./fig/phase2.png" width="70%">
+</p>
 
 ### Specification 3 (8 points)
+Write a `getPolynomialValue` subroutine that receives in input:
+1) address of the matrix (with values set by the `computeDifferences` subroutine)
+2) *n+1*: grade of the polynomial + 1
+3) *m*
+
+The subroutine implements the phase 3 of the algorithm of divided differences. It returns the value of *p(m)*.
+
+Optional: the subroutine checks the overflow when computing the sums.<br/>
+If the result of the addition is positive but it is too large to fit in 32 bits, then it is replaced with the greatest positive value that you can store in 32 bits.<br/>
+If the result of the addition is negative but it is too small to fit in 32 bits, then it is replaced with the smallest negative value that you can store in 32 bits.
+
+Max score without the overflow check: 7 points.<br/>
+Max score with the overflow check: 8 points.
+
+Example of calling code
+```
+        AREA  |.text|, CODE, READONLY
+Reset_Handler PROC
+        [...]
+        LDR   r0, =matrix
+        MOV   r1, #5
+        MOV   r2, #9          ; return value will be p(r2)
+        BL    getPolynomialValue
+stop    B     stop
+        ENDP
+```
+In the example, the block of memory `matrix` after the subroutine call is:
+
+<p align="center">
+  <img src="./fig/phase3.png" width="70%">
+</p>
 
 [//]: # (https://tex-image-link-generator.herokuapp.com/)
