@@ -1,52 +1,12 @@
 # Exam of 03.02.2021
 Exam of the Computer Architectures course of the master degree in Embedded System (Electronic Engineering) of Politecnico di Torino.<br/>
-Tested in Keil uVision5.<br/>
+Tested in EMU8086 version 4.08 and Keil uVision5.<br/>
 
 ## Exam Text
-
-### Specification 1 (? points)
-
-### Specification 2 (? points)
-
-### Specification 3 (? points)
-
-### Specification 4 (? points)
-Given a 4 x 4 matrix of WORD (i.e. 16 bits single data) `SOURCE` write a 8086 assembly program which rotates the rows of `SOURCE` from up to down by 1<=n<=3 positions and stores the result in the matrix `DESTINATION`, with n given by the user.
-The choice is yours about how to store the matrices in the memory.
-Please add significant comments to the code and instructions.
-If you have time, in order to get one additional point, provide the instructions to extend the program to consider n in the range -80<=n<=+120.
-
-#### Example:
-Initial matrix `SOURCE`
-```
-A B C D
-E F G H
-I J K L
-M N O P
-```
-if n=3 `DESTINATION` becomes
-```
-E F G H
-I J K L
-M N O P
-A B C D
-```
-if n=1 `DESTINATION` becomes
-```
-M N O P
-A B C D
-E F G H
-I J K L
-```
-
-### Specification 5 (9 points)
-
-Click on the following links to open web pages with the ARM instruction set<br/>
-http://www.keil.com/support/man/docs/armasm<br/>
-https://developer.arm.com/documentation/ddi0337/e/introduction/instruction-set-summary?lang=en<br/>
-*Note*: Assembly subroutines must comply with the ARM Architecture Procedure Call Standard (AAPCS) standard (about parameter passing, returned value, calleesaved
+Assembly subroutines must comply with the ARM Architecture Procedure Call Standard (AAPCS) standard (about parameter passing, returned value, calleesaved
 registers).
 
+### Specification 1
 The IEEE-754 SP standard expresses floating-point numbers in 32 bits:
 
 <p align="center">
@@ -87,3 +47,32 @@ In details, the subroutine implements the following steps:
 	- `exponentResult = 1000 0101`
 5. `mantissaResult = 0000 0000 0000 1110 1000 0000 0000 0000`
 6. `result = 0100 0010 1000 1110 1000 0000 0000 0000`
+
+### Specification 2
+Given a 4 x 4 matrix of WORD (i.e. 16 bits single data) `SOURCE` write a 8086 assembly program which rotates the rows of `SOURCE` from up to down by 1<=n<=3 positions and stores the result in the matrix `DESTINATION`, with n given by the user.
+The choice is yours about how to store the matrices in the memory.
+Please add significant comments to the code and instructions.
+If you have time, in order to get one additional point, provide the instructions to extend the program to consider n in the range -80<=n<=+120.
+
+#### Example:
+Initial matrix `SOURCE`
+```
+A B C D
+E F G H
+I J K L
+M N O P
+```
+if n=3 `DESTINATION` becomes
+```
+E F G H
+I J K L
+M N O P
+A B C D
+```
+if n=1 `DESTINATION` becomes
+```
+M N O P
+A B C D
+E F G H
+I J K L
+```
