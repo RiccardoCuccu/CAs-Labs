@@ -54,7 +54,7 @@ The choice is yours about how to store the matrices in the memory.
 Please add significant comments to the code and instructions.
 If you have time, in order to get one additional point, provide the instructions to extend the program to consider n in the range -80<=n<=+120.
 
-#### Example:
+#### Example
 Initial matrix `SOURCE`
 ```
 A B C D
