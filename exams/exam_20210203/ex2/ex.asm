@@ -35,7 +35,6 @@ ROTATE  PROC                    ; ROTATE MATRIX
         MOV     CX, LEN         ; set counter to LEN
 
 ROW:
-
         MOV     DX, SOURCE[SI]
         MOV     DESTINATION[DI], DX
 
@@ -51,7 +50,6 @@ ROW:
 RESETROT:
         MOV     DI, 0           ; reset destination index
         LOOP    ROW
-
 
 ENDROT:
         POPA
@@ -120,7 +118,7 @@ INNUM   ENDP
 
         .startup
 
-        LEA     DX, MSG         ; "Enter a value between 1 and 3:"
+        LEA     DX, MSG         ; "Enter a value between -80 and +120:"
         MOV     AH, 09H         ; printing code
         INT     21H             ; interrupt
 
