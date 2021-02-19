@@ -160,7 +160,7 @@ addFPpositiveNumbers PROC
                 AND     r7, r1, #0x7F800000     ; extract exponent param2
 
                 CMP     r6, r7                  ; compare exponents
-                BHI     exp1gr
+                BHS     exp1gr
                 BLO     exp2gr
 
 exp1gr          MOV     r8, r6                  ; save highest exponent to r8
