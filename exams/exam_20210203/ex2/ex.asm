@@ -28,11 +28,10 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ROTATE  PROC                    ; ROTATE MATRIX
         PUSHA
 
-        MOV     CX, LEN         ; set counter to LEN
+        MOV     CX, SIZE        ; set counter to LEN
 
 ROW:
         MOV     DX, SOURCE[SI]
@@ -57,7 +56,6 @@ ENDROT:
 ROTATE  ENDP
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 INNUM   PROC                    ; INPUT NUMBER
         PUSHA
@@ -130,20 +128,7 @@ INNUM   ENDP
         MOV     DI, AX          ; move the destination index into DI
         MOV     CX, LEN         ; set counter to LEN
 
-NEXT:   
-        CALL    ROTATE
-        ADD     SI, 2*LEN       ; increment source
-        ADD     DI, 2*LEN       ; increment destination
-        CMP     DI, 2*SIZE      ; check if the destination index has exceeded the size of the matrix
-        JE      RESNEXT
+        CALL    ROTATE          ; rotate matrix
 
-        LOOP    NEXT
-        JMP     END
-
-RESNEXT:
-        MOV     DI, 0           ; reset destination index
-        LOOP    NEXT
-
-END:
         .exit
         end
