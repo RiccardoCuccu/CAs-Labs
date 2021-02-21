@@ -31,7 +31,7 @@
 ROTATE  PROC                    ; ROTATE MATRIX
         PUSHA
 
-        MOV     CX, SIZE        ; set counter to LEN
+        MOV     CX, SIZE        ; set counter to SIZE
 
 ROW:
         MOV     DX, SOURCE[SI]
