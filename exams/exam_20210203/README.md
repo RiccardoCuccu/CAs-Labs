@@ -48,7 +48,7 @@ In details, the subroutine implements the following steps:
 5. `mantissaResult = 0000 0000 0000 1110 1000 0000 0000 0000`
 6. `result = 0100 0010 1000 1110 1000 0000 0000 0000`
 
-### Specification 2
+### Specification 3
 Given a 4 x 4 matrix of WORD (i.e. 16 bits single data) `SOURCE` write a 8086 assembly program which rotates the rows of `SOURCE` from up to down by 1<=n<=3 positions and stores the result in the matrix `DESTINATION`, with n given by the user.
 The choice is yours about how to store the matrices in the memory.
 Please add significant comments to the code and instructions.
