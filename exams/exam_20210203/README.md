@@ -15,8 +15,7 @@ The IEEE-754 SP standard expresses floating-point numbers in 32 bits:
 
 Bit 31 is 0 if the number is positive, 1 if negative.
 
-Write the `addFPpositiveNumbers` subroutine, which receives in input two 32-bit numbers, considers them as IEEE-754 SP floating point numbers, and returns their
-sum (in the same format). Bit 31 of the two input numbers is always 0 (i.e., the two numbers are positive).
+Write the `addFPpositiveNumbers` subroutine, which receives in input two 32-bit numbers, considers them as IEEE-754 SP floating point numbers, and returns their sum (in the same format). Bit 31 of the two input numbers is always 0 (i.e., the two numbers are positive).
 
 In details, the subroutine implements the following steps:
 1. take the mantissa of the two parameters
@@ -47,6 +46,29 @@ In details, the subroutine implements the following steps:
 	- `exponentResult = 1000 0101`
 5. `mantissaResult = 0000 0000 0000 1110 1000 0000 0000 0000`
 6. `result = 0100 0010 1000 1110 1000 0000 0000 0000`
+
+### Specification 2
+Initialize register `r4` and `r5` with two values expressing floating-point numbers according to the IEEE-754 SP standard.
+
+Configure the `SYSTICK` timer in order to generate an interrupt every 2<sup>20</sup> clock cycles.
+
+Enter in an infinite loop. In the `SYSTICK` timer interrupt handler, sum the content of the `r4` and `r5` registers by calling the `addFPpositiveNumbers` subroutine and then store the result in `r4`.
+
+The `SYSTICK` timer is configured by means of the following registers:
+- Control and Status Register: size 32 bits, address `0xE000E010`
+- Reload Value Register: size 24 bits, address `0xE000E014`
+- Current Value Register: 24 bits, address `0xE000E018`
+
+The meaning of the bits in the Control and Status Register is as follows:
+- Bit 16 (read-only): it is read as 1 if the counter reaches 0 since last time this register is read; it is cleared to 0 when read or when the current counter value is cleared
+- Bit 2 (read/write): if 1, the processor free running clock is used; if 0, an external reference clock is used
+- Bit 1 (read/write): if 1, an interrupt is generated when the timer reaches 0; if 0, the interrupt is not generated
+- Bit 0 (read/write): if 1, `SYSTICK` timer is enabled; if 0, `SYSTICK` timer is disabled.
+
+The Reload Value Register stores the value to reload when the timer reaches 0.
+
+The Current Value Register stores the current value of the timer.
+Writing any number clears its content.
 
 ### Specification 3
 Given a 4 x 4 matrix of WORD (i.e. 16 bits single data) `SOURCE` write a 8086 assembly program which rotates the rows of `SOURCE` from up to down by 1<=n<=3 positions and stores the result in the matrix `DESTINATION`, with n given by the user.
