@@ -6,97 +6,87 @@
 	.model small
 	.stack
 
-	dim1		EQU		20
-	dim2		EQU		30
-	dim3		EQU		50
-	k1		EQU		1
-	k2		EQU		2
-	k3		EQU		3
-	k4		EQU		4
+	D1		EQU 20
+	D2		EQU 30
+	D3		EQU D1+D2
 
-	LF		EQU		10		; line feed
-	CR 		EQU		13		; carriage return
+	K1		EQU 1
+	K2		EQU 2
+	K3		EQU 3
+	K4		EQU 4
+
+	V		EQU 26
+
+	LF		EQU 10			; line feed
+	CR 		EQU 13			; carriage return
 
 	.data
 
-	MSG0    DB      CR, LF, "$"        
-	MSGS    DB      "Programma avviato", CR, LF, "$"
-	MSGE    DB      "Programma terminato", CR, LF, "$"
-	MSG1    DB      "Inserire la riga numero uno, deve contenere tra i 20 e i 50 caratteri:", CR, LF, "> ", "$"
-	MSG2    DB      "Inserire la riga numero due, deve contenere tra i 20 e i 50 caratteri:", CR, LF, "> ", "$"
-	MSG3    DB      "Inserire la riga numero tre, deve contenere tra i 20 e i 50 caratteri:", CR, LF, "> ", "$"
-	MSG4    DB      "Inserire la riga numero quattro, deve contenere tra i 20 e i 50 caratteri:", CR, LF, "> ", "$"
-	MSG5    DB      "Calcolo delle occorrenze in corso", CR, LF, "$"
-	MSG6    DB      "Carattere con il maggior numero di occorrenze", CR, LF, "> ", "$"
-	MSG7    DB      "Caratteri con un numero di occorrenze >= a MAX/2", CR, LF, "> ", "$"
-	MSGK1   DB      "Cifratura di Cesare con k=1", CR, LF, "> ", "$"
-	MSGK2   DB      "Cifratura di Cesare con k=2", CR, LF, "> ", "$"
-	MSGK3   DB      "Cifratura di Cesare con k=3", CR, LF, "> ", "$"
-	MSGK4   DB      "Cifratura di Cesare con k=4", CR, LF, "> ", "$"
+	MSG0		DB CR, LF, "$"
+	MSGS		DB "Programma avviato", CR, LF, "$"
+	MSGE		DB "Programma terminato", CR, LF, "$"
+	MSG1		DB "Inserire la riga numero uno, deve contenere tra i 20 e i 50 caratteri:", CR, LF, "> ", "$"
+	MSG2		DB "Inserire la riga numero due, deve contenere tra i 20 e i 50 caratteri:", CR, LF, "> ", "$"
+	MSG3		DB "Inserire la riga numero tre, deve contenere tra i 20 e i 50 caratteri:", CR, LF, "> ", "$"
+	MSG4		DB "Inserire la riga numero quattro, deve contenere tra i 20 e i 50 caratteri:", CR, LF, "> ", "$"
+	MSG5		DB "Calcolo delle occorrenze in corso", CR, LF, "$"
+	MSG6		DB "Carattere con il maggior numero di occorrenze", CR, LF, "> ", "$"
+	MSG7		DB "Caratteri con un numero di occorrenze >= a MAX/2", CR, LF, "> ", "$"
+	MSGK1		DB "Cifratura di Cesare con k=1", CR, LF, "> ", "$"
+	MSGK2		DB "Cifratura di Cesare con k=2", CR, LF, "> ", "$"
+	MSGK3		DB "Cifratura di Cesare con k=3", CR, LF, "> ", "$"
+	MSGK4		DB "Cifratura di Cesare con k=4", CR, LF, "> ", "$"
 
-	first_line	DB 50 DUP(0)
-	second_line	DB 50 DUP(0)
-	third_line	DB 50 DUP(0)
-	fourth_line	DB 50 DUP(0)
-	upper_char	DB 26 DUP(0)		; A-Z (65-90)
-	lower_char	DB 26 DUP(0)		; a-z (97-122)
+	first_line	DB D3 DUP(0)
+	second_line	DB D3 DUP(0)
+	third_line	DB D3 DUP(0)
+	fourth_line	DB D3 DUP(0)
+	chars		DB V DUP(0)
 
 	.code	
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-store_char proc near				; STORE CHARACTERS
+store_char	proc near			; STORE CHARACTERS
 		push DI
-		mov CX, dim1			; store in CX 20
-		mov BX, dim2			; store in BX 30
+		push AX
+		push CX
+		
 		mov AH, 1			; reading
+		mov CX, D1			; store in CX 20
+		
 store1: 
 		int 21H				; interrupt
 		mov [DI], AL			; save character
 		inc DI				; increment index
-		dec CX				; decrement CX
-		cmp CX, 0			; check if it is the 20th character
-		jne store1			; if CX is not zero go to "store1"
-		mov CL, 13			; store in CL the ascii code of ENTER
-		cmp [DI-1], CL			; check if the twentieth character is ENTER
-		je store3			; if the character is ENTER go to "store3"
+		loop store1			; check if it is the 20th character 
+		
+		cmp [DI-1], CR			; check if the 20th character is ENTER
+		je store_end			; if the character is ENTER go to "store_end"
+		mov CX, D2			; store in CX 30
+
 store2: 
 		int 21H				; interrupt
 		mov [DI], AL			; save character
 		inc DI				; increment index
-		dec BX				; decrement BX
-		cmp [DI-1], CL			; check if the character is ENTER
-		je store3			; if the character is ENTER go to "store3"
-		cmp BX, 0			; check if it is the 50th character
-		jne store2			; if BX is not zero go to "store2"
-store3:	
+		cmp [DI-1], CR			; check if the character is ENTER
+		je store_end			; if the character is ENTER go to "store_end"
+		loop store2			; check if it is the 50th character
+
+store_end:	
+		mov BX, D3			; store in BX 50
+		sub BX, CX			; calculates the number of characters
 		call back
+		
+		pop CX
+		pop AX
 		pop DI
 		ret
-store_char endp	
+store_char	endp
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-print_char proc near				; PRINT CHARACTERS
-		push DI
-		mov CX, dim3			; store in BX 50
-		sub CX, BX			; calculates the number of characters entered
-		mov AH, 2			; writing
-printl2:
-		mov DL, [DI]			; load character
-		int 21H				; interrupt
-		inc DI				; increment index
-		dec CX				; decrement CX
-		cmp CX, 0			; check if it is the last character
-		jne printl2			; if CX is not zero go to "printl2"
-		call back			; new line
-		pop DI
-		ret
-print_char endp
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-count proc near					; COUNT CHARACTERS
+count		proc near			; COUNT CHARACTERS
 		push DI
 		push BX
 		push CX
@@ -104,48 +94,45 @@ count proc near					; COUNT CHARACTERS
 
 		lea DX, MSG5			; "Calcolo delle occorrenze in corso"
 		call prints			; print string
+		
+		mov CX, BX			; move the number of characters entered
 
-		mov BH, 0
-		mov CX, dim3			; store in CX 50
-		sub CX, BX			; calculates the number of characters entered
+count_char:
+		cmp [DI], 'A'			; check if the ASCII code is greater than 65
+		jl count_skip			; if it is lower go to "count_skip"
+		cmp [DI], 'z'			; check if the ASCII code is lower than 122
+		jg count_skip			; if it is greater go to "count_skip"
+		cmp [DI], 'Z'			; check if the ASCII code is lower than 90
+		jle count_upper			; if it is lower go to "count_upper" because it is an uppercase
+		cmp [DI], 'a'			; check if the ASCII code is greater than 97
+		jge count_lower			; if it is greater go to "count_lower" because it is a lowercase
+		jmp count_skip			; in any other case it is not a letter, than go to "count99"
 
-count0:
-		cmp [DI], 65			; check if the ASCII code is greater than 65
-		jl count99			; if it is lower go to "count99"
-		cmp [DI], 122			; check if the ASCII code is lower than 122
-		jg count99			; if it is greater go to "count99"
-		cmp [DI], 90			; check if the ASCII code is lower than 90
-		jle count1			; if it is lower go to "count1" because it is an uppercase
-		cmp [DI], 97			; check if the ASCII code is greater than 97
-		jge count2			; if it is greater go to "count2" because it is a lowercase
-		jmp count99			; in any other case it is not a letter, than go to "count99"
-count1:	
+count_upper:	
 		mov BL, [DI]
-		sub BL, 65			; convert the ASCII code of the uppercase to the position within the vector
-		inc upper_char[BX]
-		jmp count99
-count2: 
-		mov BL, [DI]
-		sub BL, 97			; convert the ASCII code of the lowercase to the position within the vector
-		inc lower_char[BX]
-		;jmp count99
+		sub BL, 'A'			; convert the ASCII code of the uppercase to the position within the vector
+		inc chars[BX]
+		jmp count_skip
 
-count99:
+count_lower: 
+		mov BL, [DI]
+		sub BL, 'a'			; convert the ASCII code of the lowercase to the position within the vector
+		inc chars[BX]
+
+count_skip:
 		inc DI				; increment index
-		dec CX				; decrement counter
-		cmp CX, 0			; check if it is the last character
-		jne count0			; if CX is not zero go to "count0" 
+		loop count_char
 
 		pop DX
 		pop CX
 		pop BX
 		pop DI
 		ret
-count endp
+count		endp
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-print_max proc near				; PRINT MAX CHARACTER
+print_max	proc near			; PRINT MAX CHARACTER
 		push AX
 		push BX
 		push DX
@@ -155,47 +142,30 @@ print_max proc near				; PRINT MAX CHARACTER
 
 		lea DX, MSG6			; "Carattere con MAX numero di occorrenze"
 		call prints			; print string
-
-upper_test:
-		lea DI, upper_char		; load effective address of upper_char
+		
+		lea DI, chars
 		cmp BX, DI			; check if the character is out of the vector
-		jl lower_test			; if BX is lower than DI go to "lower_test"
-		add DI, 26			; add the dimension of the vector to DI
+		jl end_max			; if BX is lower than DI go to "end_max"
+		add DI, V			; add the dimension of the vector to DI
 		cmp BX, DI			; check if the character is out of the vector
-		jge lower_test			; if BX is greater than DI go to "lower_test"
-		lea DI, upper_char		; load effective address of upper_char
+		jg end_max			; if BX is greater than DI go to "end_max"
+		
+		lea DI, chars			; load effective address of chars
 		sub BX, DI			; calculate the position in the vector
-		add BX, 41H			; convert to ASCII
+		add BX, 'a'			; convert to ASCII
+		
 		mov DL, BL			; move digit to DL
 		mov BL, AL			; copy the number of occurrence to BL
 		mov AH, 2			; writing
 		int 21H				; interrupt
-		mov DL, 3DH			; move "=" to DL
+		
+		mov DL, '='			; move "=" to DL
 		int 21H				; interrupt
-		mov AL, BL			; move the number of occurrence to DL
-		call print_num
-		jmp end_test
-
-lower_test:
-		lea DI, lower_char
-		cmp BX, DI			; check if the character is out of the vector
-		jl end_test			; if BX is lower than DI go to "lower_test"
-		add DI, 26			; add the dimension of the vector to DI
-		cmp BX, DI			; check if the character is out of the vector
-		jg end_test			; if BX is greater than DI go to "lower_test"
-		lea DI, lower_char		; load effective address of lower_char
-		sub BX, DI			; calculate the position in the vector
-		add BX, 61H			; convert to ASCII
-		mov DL, BL			; move digit to DL
-		mov BL, AL			; copy the number of occurrence to BL
-		mov AH, 2			; writing
-		int 21H				; interrupt
-		mov DL, 3DH			; move "=" to DL
-		int 21H				; interrupt
+		
 		mov AL, BL			; move the number of occurrence to AL
 		call print_num
 
-end_test:
+end_max:
 		call back
 		call print_submax
 
@@ -204,11 +174,11 @@ end_test:
 		pop BX
 		pop AX
 		ret
-print_max endp
+print_max	endp
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-print_submax proc near				; PRINT MAX/2 CHARACTERS
+print_submax	proc near			; PRINT MAX/2 CHARACTERS
 		push AX
 		push BX
 		push CX
@@ -224,58 +194,39 @@ print_submax proc near				; PRINT MAX/2 CHARACTERS
 		mov BL, AL			; move the result in to BL
 
 		cmp AH, 0			; check if there is rest
-		je start_comp			; if the rest is zero it is an even number 
+		je start_submax			; if the rest is zero it is an even number 
 		add BL, 1			; adds one to the odd number
 
-start_comp:
+start_submax:
 		mov CL, 0			; set counter
-		lea DI, lower_char
-compare_lower:
-		cmp CL, 26			; check if the vector is ended
-		je end_lower			; if CX is zero than go to "end_lower"
+		lea DI, chars
+
+compare_submax:
+		cmp CL, V			; check if the vector is ended
+		je end_submax			; if CX is zero than go to "end_submax"
 		cmp [DI], BL
-		jl check_lower
+		jl check_submax
+		
 		mov DL, CL			; move digit to DL
-		add DL, 61H			; convert to ASCII
+		add DL, 'a'			; convert to ASCII
 		mov AH, 2			; writing
 		int 21H				; interrupt
-		mov DL, 3DH			; move "=" to DL
+		
+		mov DL, '='			; move "=" to DL
 		int 21H				; interrupt
+		
 		mov AL, [DI]			; move the number of occurrence to DL
 		call print_num
-		mov DL, 09H			; move "\TAB" to DL
-		int 21H				; interrupt
-
-check_lower:  
-		inc DI				; increment index
-		inc CL				; decrement CL
-		jmp compare_lower		; go to "compare_lower"
-
-end_lower:
-		mov CL, 0
-		lea DI, upper_char
-compare_upper:
-		cmp CL, 26			; check if the vector is ended
-		je end_upper			; if CX is zero than go to "end_upper"
-		cmp [DI], BL
-		jl check_upper
-		mov DL, CL			; move digit to DL
-		add DL, 41H			; convert to ASCII
-		mov AH, 2			; writing
-		int 21H				; interrupt
-		mov DL, 3DH			; move "=" to DL
-		int 21H				; interrupt
-		mov AL, [DI]			; move the number of occurrence to DL
-		call print_num
+		
 		mov DL, 09H			; move "\TAB" to DL
 		int 21H				; interrupt
 		
-check_upper:  
+check_submax:
 		inc DI				; increment index
 		inc CL				; decrement CL
-		jmp compare_upper		; go to "compare_upper"
+		jmp compare_submax		; go to "compare_submax"
 
-end_upper:
+end_submax:
 		call back			; new line
 
 		pop DI
@@ -283,19 +234,16 @@ end_upper:
 		pop BX
 		pop AX
 		ret
-print_submax endp
+print_submax	endp
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-max_char proc near
+max_char	proc near
 		push DI
-		
-		lea DI, upper_char		; load effective address of upper_char
-		mov AL, [DI]			; move the first value into AL
-		call max_char_single		; analyze the uppercase vector
 
-		lea DI, lower_char		; load effective address of lower_char
-		call max_char_single		; analyze the lowercase vector
+		lea DI, chars			; load effective address of chars
+		mov AL, [DI]			; move the first value into AL
+		call max_char_single		; analyze the vector
 
 		pop DI
 		ret
@@ -303,15 +251,13 @@ max_char endp
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-max_char_single proc near
+max_char_single	proc near
 		push DI
 		push CX
 
-		mov CX, 26			; load the dimension of the vector
+		mov CX, V			; load the dimension of the vector
 
 start_compare:
-		cmp CX, 0			; check if the vector is ended
-		je end_compare			; if CX is zero than go to "end_compare"
 		cmp AL, [DI]			; check if the value in AL is grater than the value in [DI]
 		jg up_compare			; if value in AL is grater than the value in [DI] go to "up_compare"
 		mov AL, [DI]			; substitute the character
@@ -319,18 +265,17 @@ start_compare:
 
 up_compare:
 		inc DI				; increment index
-		dec CX				; decrement CX
-		jmp start_compare		; go to "start_compare"
+		loop start_compare  ; check if the vector is ended
 
 end_compare:
 		pop CX
 		pop DI
 		ret
-max_char_single endp
+max_char_single	endp
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-print_num proc near				; PRINT NUMBERS
+print_num	proc near			; PRINT NUMBERS
 		push AX
 		push BX
 		push DX
@@ -343,7 +288,7 @@ print_num proc near				; PRINT NUMBERS
 		call print_num			; recursive iteration
 		mov AL, AH			; move the rest
 
-digit:  push AX
+digit:		push AX
 		mov AH, 2			; writing
 		mov DL, AL			; move digit to DL
 		add DL, 30H			; convert to ASCII
@@ -354,29 +299,29 @@ digit:  push AX
 		pop BX
 		pop AX
 		ret
-print_num endp
+print_num	endp
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-prints  proc					; PRINT STRING
-		push    AX
+prints		proc				; PRINT STRING
+		push AX
 
-		mov     AH, 09H			; show string
-		int     21H			; interrupt
+		mov AH, 09H			; show string
+		int 21H				; interrupt
 
-		pop     AX			; pop
+		pop  AX				; pop
 		ret
-prints  endp
+prints		endp
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-crypto proc near				; CAESAR CIPHER
+crypto		proc near			; CAESAR CIPHER
 		push DI
 		push AX
 		push BX
 		push DX
 
-		mov BL, dim3
+		mov BL, D3
 		mov BH, 0
 
 start: 
@@ -420,53 +365,42 @@ skip:		inc DI				; increment index
 		pop AX
 		pop DI
 		ret
-crypto endp
+crypto		endp
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-back proc near					; NEW LINE
+back		proc near			; NEW LINE
 		push AX
 		push DX
 
 		mov AH, 2			; writing
-		mov DL, 13			; carriage return
+		mov DL, CR			; carriage return
 		int 21H				; interrupt
-		mov DL, 10			; line feed
+		mov DL, LF			; line feed
 		int 21H				; interrupt
 
 		pop DX
 		pop AX
 		ret
-back endp
+back		endp
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-clean proc near					; CLEAN VECTORS
-		push AX
+clean		proc near			; CLEAN VECTORS
+		push CX
 		push DI
-
-		lea DI, upper_char		; load effective address of upper_char
-		mov AL, 0			; set counter
-clean_up:
+		
+		lea DI, chars			; load effective address of upper_char
+		mov CX, V			; set counter
+clean_vec:
 		mov [DI], 0			; set to 0 the vector
 		inc DI				; increment index
-		inc AL				; increment counter
-		cmp AL, 26			; check if the vector is ended
-		jl clean_up			; if it is not ended go to "clean_up"
-
-		mov AL, 0			; set counter
-		lea DI, lower_char		; load effective address of lower_char
-clean_low:
-		mov [DI], 0			; set to 0 the vector
-		inc DI				; increment index
-		inc AL				; increment counter
-		cmp AL, 26			; check if the vector is ended
-		jl clean_low			; if it is not ended go to "clean_up"
+		loop clean_vec
 
 		pop DI
-		pop AX
+		pop CX
 		ret
-clean endp
+clean		endp
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -482,7 +416,7 @@ clean endp
 	call store_char				; store characters
 	call count				; count occurrences
 	call print_max				; print max and max/2 characters
-	mov CL, k1				; store in CL 1
+	mov CL, K1				; store in CL 1
 	lea DI, first_line			; load effective address of first_line
 	lea DX, MSGK1				; "Cifratura di Cesare con k=1"
 	call prints				; print string
@@ -490,13 +424,14 @@ clean endp
 
 	call clean				; clean the vectors
 	call back				; new line
+	
 	lea DX, MSG2				; "Inserire stringa 2"
 	call prints				; print string
 	lea DI, second_line			; load effective address of second_line
 	call store_char				; store characters
 	call count				; count occurrences
 	call print_max				; print max and max/2 characters
-	mov CL, k2				; store in CL 2
+	mov CL, K2				; store in CL 2
 	lea DI, second_line			; load effective address of second_line
 	lea DX, MSGK2				; "Cifratura di Cesare con k=2"
 	call prints				; print string
@@ -504,15 +439,17 @@ clean endp
 
 	call clean				; clean the vectors
 	call back				; new line
+	
 	lea DX, MSG3				; "Inserire stringa 3"
 	call prints				; print string
 	lea DI, third_line			; load effective address of third_line
 	call store_char				; store characters
 	call count				; count occurrences
 	call print_max				; print max and max/2 characters
-	mov CL, k3				; store in CL 3
+	mov CL, K3				; store in CL 3
 	lea DI, third_line			; load effective address of third_line
 	lea DX, MSGK3				; "Cifratura di Cesare con k=3"
+	
 	call prints 				; print string
 	call crypto				; caesar cipher
 
@@ -524,9 +461,10 @@ clean endp
 	call store_char				; store characters
 	call count				; count occurrences
 	call print_max				; print max and max/2 characters
-	mov CL, k4				; store in CL 4
+	mov CL, K4				; store in CL 4
 	lea DI, fourth_line			; load effective address of fourth_line
 	lea DX, MSGK4				; "Cifratura di Cesare con k=4"
+	
 	call prints				; print string
 	call crypto				; caesar cipher
 
