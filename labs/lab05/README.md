@@ -30,6 +30,6 @@ For example: `r2` = `r1` + `r0`, `r3` = `r2` + `r1`, etc.
 ## Exercise 3
 Write a program in ARM assembly language executing this tasks:
 - Define the following constants in the code area
-`myConstants DCW 57721,56649, 15328, 60606, 51209, 8240, 24310, 42159`.
-- Allocate 16 byte (4 word ) in a data area.
+`myConstants DCW 57721, 56649, 15328, 60606, 51209, 8240, 24310, 42159`.
+- Allocate 16 byte (4 word) in a data area.
 - Considering the constants into couples, write in the 4 word the sum of the 4 couples of constants.

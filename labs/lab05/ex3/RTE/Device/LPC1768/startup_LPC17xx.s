@@ -116,7 +116,8 @@ __Vectors       DCD     __initial_sp              ; Top of Stack
 CRP_Key         DCD     0xFFFFFFFF
                 ENDIF
 
-Reserved_Size   EQU     0x00000010                ; 16 byte
+Reserved_Size   EQU     16                        ; memory size (16-byte)
+N               EQU     Reserved_Size/4           ; number of additions
 
                 AREA    exercise, DATA, READWRITE
 Reserved_Mem    SPACE   Reserved_Size
@@ -130,28 +131,17 @@ myConstants     DCW     57721, 56649, 15328, 60606, 51209, 8240, 24310, 42159
 Reset_Handler   PROC
                 EXPORT  Reset_Handler             [WEAK]
 
-                LDR     r14, =Reserved_Mem        ; load address of Reserved_Mem
+                LDR     r11, =Reserved_Mem        ; load address of Reserved_Mem
                 LDR     r12, =myConstants         ; load address of myConstants
+                MOV     r3, #N                    ; set counter
 
-                LDRH    r0, [r12]                 ; load register halfword (16-bit)
-                LDRH    r1, [r12, #2]             ; load register halfword (16-bit)
-                ADDS    r2, r0, r1                ; add registers
-                STR     r2, [r14]                 ; store result
+addition        LDRH    r0, [r12], #2             ; load register halfword (16-bit) + post indexed addressing mode
+                LDRH    r1, [r12], #2             ; load register halfword (16-bit) + post indexed addressing mode
+                ADD     r2, r0, r1                ; add registers
+                STR     r2, [r11], #4             ; store result (32-bit) + post indexed addressing mode
 
-                LDRH    r0, [r12, #4]
-                LDRH    r1, [r12, #6]
-                ADDS    r2, r0, r1
-                STR     r2, [r14, #4]
-
-                LDRH    r0, [r12, #8]
-                LDRH    r1, [r12, #10]
-                ADDS    r2, r0, r1
-                STR     r2, [r14, #8]
-
-                LDRH    r0, [r12, #12]
-                LDRH    r1, [r12, #14]
-                ADDS    r2, r0, r1
-                STR     r2, [r14, #12]
+                SUBS    r3, r3, #1                ; decrement counter
+                BNE     addition                  ; branch if the counter is not zero
 
 stop            B       stop
                 ENDP
