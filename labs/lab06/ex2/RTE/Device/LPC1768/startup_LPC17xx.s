@@ -119,53 +119,35 @@ CRP_Key         DCD     0xFFFFFFFF
 
                 AREA    |.text|, CODE, READONLY
 
+V0              EQU     0x7A30458D
+V1              EQU     0xC3159EAA
+MASK            EQU     0x000000FF
 
 ; Reset Handler
 
 Reset_Handler   PROC
                 EXPORT  Reset_Handler             [WEAK]
 
-                ;#0x7A30458D
-                MOV     r0, #0x458D               ; write 0x458D to R0[15:0]
-                MOVT    r0, #0x7A30               ; write 0x7A30 to R0[31:16]
-                
-                ;#0xC3159EAA
-                MOV     r1, #0x9EAA               ; write 0x9EAA to R1[15:0]
-                MOVT    r1, #0xC315               ; write 0xC315 to R1[31:16]
+                LDR     r0, =V0                   ; load 0x7A30458D
+                LDR     r1, =V1                   ; load 0xC3159EAA
+                ;MOV     r5, #0                    ; set r5 to 0
+                ;MOV     r11, #0                   ; set r11 to 0
+                MOV     r12, #MASK                ; load mask
 
-                AND     r11, r0, #0x000000FF      ; extract the first byte from the first value
-                AND     r12, r1, #0x000000FF      ; extract the first byte from the second value
-                CMP     r11, r12                  ; compare
-                ITE     HI                        ; if r11 is (HI)gher than r12
-                SUBHI   r5, r11, r12              ; than r5 = r11 - r12
-                SUBLS   r5, r12, r11              ; else r5 = r12 - r11
+absolute        AND     r2, r0, r12               ; extract 8 bits from the first value
+                AND     r3, r1, r12               ; extract 8 bits from the second value
+                SUBS    r4, r2, r3                ; subtraction + update flags
 
-                AND     r11, r0, #0x0000FF00      ; extract the second byte from the first value
-                AND     r12, r1, #0x0000FF00      ; extract the second byte from the second value
-                CMP     r11, r12                  ; compare
-                ITE     HI                        ; if r11 is (HI)gher than r12
-                SUBHI   r3, r11, r12              ; than r3 = r11 - r12
-                SUBLS   r3, r12, r11              ; else r3 = r12 - r11
-                LSR     r3, r3, #8                ; logical shift right by 8 positions
-                ADD     r5, r5, r3                ; add value
+                IT      MI                        ; if the negative flag is one (r4 < 0)
+                SUBMI   r4, r3, r2                ; inverse subtraction
 
-                AND     r11, r0, #0x00FF0000      ; extract the third byte from the first value
-                AND     r12, r1, #0x00FF0000      ; extract the third byte from the second value
-                CMP     r11, r12                  ; compare
-                ITE     HI                        ; if r11 is (HI)gher than r12
-                SUBHI   r3, r11, r12              ; than r3 = r11 - r12
-                SUBLS   r3, r12, r11              ; else r3 = r12 - r11
-                LSR     r3, r3, #16               ; logical shift right by 16 positions
-                ADD     r5, r5, r3                ; add value
+                LSR     r4, r11                   ; shift the partial result if necessary
+                ADD     r11, r11, #8              ; add 8 for the next shift
 
-                AND     r11, r0, #0xFF000000      ; extract the fourth byte from the first value
-                AND     r12, r1, #0xFF000000      ; extract the fourth byte from the second value
-                CMP     r11, r12                  ; compare
-                ITE     HI                        ; if r11 is (HI)gher than r12
-                SUBHI   r3, r11, r12              ; than r3 = r11 - r12
-                SUBLS   r3, r12, r11              ; else r3 = r12 - r11
-                LSR     r3, r3, #24               ; logical shift right by 24 positions
-                ADD     r5, r5, r3                ; add value (final result)
+                ADD     r5, r5, r4                ; sum partial results
+
+                LSLS    r12, #8                   ; shift mask + update flags
+                BNE     absolute                  ; branch if the zero flag is zero (r12 != 0)
 
 stop            B       stop
                 ENDP

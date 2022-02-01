@@ -122,24 +122,21 @@ CRP_Key         DCD     0xFFFFFFFF
 
                 AREA    |.text|, CODE, READONLY
 
+V0              EQU     0x7A30458D
+V1              EQU     0xC3159EAA
 
 ; Reset Handler
 
 Reset_Handler   PROC
                 EXPORT  Reset_Handler             [WEAK]
                     
-                ;#0x7A30458D
-                MOV     r0, #0x458D               ; write 0x458D to R0[15:0]
-                MOVT    r0, #0x7A30               ; write 0x7A30 to R0[31:16]
+                LDR     r0, =V0                 ; load 0x7A30458D
+                LDR     r1, =V1                 ; load 0xC3159EAA
 
-                ;#0xC3159EAA
-                MOV     r1, #0x9EAA               ; write 0x9EAA to R1[15:0]
-                MOVT    r1, #0xC315               ; write 0xC315 to R1[31:16]
-
-                UADD8   r4, r0, r1
-                USAD8   r5, r0, r1
-                SMUAD   r6, r0, r1
-                SMUSD   r7, r0, r1
+                UADD8   r4, r0, r1              ; 0x3D45E337
+                USAD8   r5, r0, r1              ; 0x000000DA
+                SMUAD   r6, r0, r1              ; 0xC87ACB92
+                SMUSD   r7, r0, r1              ; 0x02A19FB2
 
 stop            B       stop
                 ENDP

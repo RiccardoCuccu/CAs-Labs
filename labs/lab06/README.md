@@ -23,7 +23,7 @@ Tested in Keil uVision5.
 - Example:<br/>
 `Rn` = 0x 7A 30 45 8D<br/>
 `Rm` = 0x C3 15 9E AA<br/>
-1. | 0x8D - 0xAA| = 0x1D<br/>
+1. | 0x8D - 0xAA | = 0x1D<br/>
 2. | 0x45 - 0x9E | = 0x59<br/>
 3. | 0x30 - 0x15 | = 0x1B<br/>
 4. | 0x7A – 0xC3 | = 0x49<br/><br/>
@@ -37,7 +37,7 @@ Tested in Keil uVision5.
 `SMUAD <Rd>, <Rn>, <Rm>`<br/>
 `SMUSD <Rd>, <Rn>, <Rm>`<br/>
 - Both instructions multiply the lower halfword of `Rn` times the lower halfword of `Rm`, and the higher halfword of `Rn` times the higher halfword of `Rm`.
-- Halfwords are considered in two’s complement.
+- Halfwords are considered in two's complement.
 - `SMUAD` sums the two products and stores the result in `Rd`.
 - `SMUSD` subtracts the product of high halfwords from the product of low halfwords, storing the result in `Rd`.
 Example:<br/>
@@ -54,7 +54,7 @@ With `SMUSD`, `Rd` = 0x02A19FB2<br/>
 0x458D = 17805<br/>
 0x9EAA = 40618<br/>
 0x458D * 0x9EAA = 0x2B1B35A2 = 723.203.490<br/>
-- In two’s complement:<br/>
+- In two's complement:<br/>
 0x9EAA = -24918<br/>
 0x458D * 0x9EAA = 0xE58235A2 = -443.664.990<br/>
 
