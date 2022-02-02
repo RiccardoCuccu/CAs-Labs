@@ -148,7 +148,7 @@ stop            B       stop
                 ENDP
 
 mySMUAD         PROC
-                PUSH    {r0-r5, LR}
+                PUSH    {r0-r5, LR}               ; push 7 registers (28 bytes)
                 
                 LDR     r0, [SP, #28]             ; load r0 from the stack pointer
                 LDR     r1, [SP, #32]             ; load r1 from the stack pointer
@@ -156,13 +156,13 @@ mySMUAD         PROC
                 BL      mySMU
                 ADD     r5, r4, r5                ; SMUAD
                 
-                STR     r5, [SP, #32]             ; store r6 in the stack pointer
+                STR     r5, [SP, #32]             ; store r5 in the stack pointer
                 
                 POP     {r0-r5, PC}
                 ENDP
 
 mySMUSD         PROC
-                PUSH    {r0-r5, LR}
+                PUSH    {r0-r5, LR}               ; push 7 registers (28 bytes)
 
                 LDR     r0, [SP, #28]             ; load r0 from the stack pointer
                 LDR     r1, [SP, #32]             ; load r1 from the stack pointer
@@ -170,7 +170,7 @@ mySMUSD         PROC
                 BL      mySMU
                 SUB     r5, r4, r5                ; SMUSD
                 
-                STR     r5, [SP, #32]             ; store r6 in the stack pointer
+                STR     r5, [SP, #32]             ; store r5 in the stack pointer
                 
                 POP     {r0-r5, PC}
                 ENDP
