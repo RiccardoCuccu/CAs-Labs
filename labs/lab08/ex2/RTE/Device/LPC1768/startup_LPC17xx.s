@@ -123,26 +123,21 @@ Rd_register     SPACE   0x00000004
 
                 AREA    |.text|, CODE, READONLY
 
+V0              EQU     0x7A30458D
+V1              EQU     0xC3159EAA
+MASK            EQU     0x000000FF
+
 ; Reset Handler
 
 Reset_Handler   PROC
                 EXPORT  Reset_Handler             [WEAK]
 
-                ;#0x7A30458D
-                MOV     r0, #0x458D               ; write 0x458D to R0[15:0]
-                MOVT    r0, #0x7A30               ; write 0x7A30 to R0[31:16]
-
-                ;#0xC3159EAA
-                MOV     r1, #0x9EAA               ; write 0x9EAA to R1[15:0]
-                MOVT    r1, #0xC315               ; write 0xC315 to R1[31:16]
-
-                LDR     r2, =Rn_register          ; load address of Rn_register
-                LDR     r3, =Rm_register          ; load address of Rm_register
-
-                STR     r0, [r2]                  ; store in the address indicated by r2
-                STR     r1, [r3]                  ; store in the address indicated by r3
-
+                LDR     r0, =V0                   ; load 0x7A30458D
+                LDR     r1, =V1                   ; load 0xC3159EAA
                 LDR     r6, =Rn_register          ; load address of Rn_register
+
+                STR     r0, [r6]                  ; store 0x7A30458D in the address pointed by r6
+                STR     r1, [r6, #4]              ; store 0xC3159EAA in the address pointed by r6 + 4 bytes
 
                 BL      myUSAD8
 
@@ -154,48 +149,31 @@ stop            B       stop
                 ENDP
 
 myUSAD8         PROC
-                PUSH    {r0-r12, LR}
+                PUSH    {r0-r5, r11-r12, LR}
 
-                LDR     r0, [r6]                  ; load the stored value at the address indicated by r6
-                LDR     r1, [r6, #4]              ; load the stored value at the address indicated by r6 + 4 bytes
+                LDR     r0, [r6]                  ; load the stored value at the address pointed by r6
+                LDR     r1, [r6, #4]              ; load the stored value at the address pointed by r6 + 4 bytes
 
-                AND     r11, r0, #0x000000FF      ; extract the first byte from the first value
-                AND     r10, r1, #0x000000FF      ; extract the first byte from the second value
-                CMP     r11, r10                  ; compare
-                ITE     HI                        ; if r11 is (HI)gher than r10
-                SUBHI   r5, r11, r10              ; than r5 = r11 - r10
-                SUBLS   r5, r10, r11              ; else r5 = r10 - r11
+                MOV     r12, #MASK                ; load mask
 
-                AND     r11, r0, #0x0000FF00      ; extract the second byte from the first value
-                AND     r10, r1, #0x0000FF00      ; extract the second byte from the second value
-                CMP     r11, r10                  ; compare
-                ITE     HI                        ; if r11 is (HI)gher than r10
-                SUBHI   r3, r11, r10              ; than r3 = r11 - r10
-                SUBLS   r3, r10, r11              ; else r3 = r10 - r11
-                LSR     r3, r3, #8                ; logical shift right by 8 positions
-                ADD     r5, r5, r3                ; add value
+absolute        AND     r2, r0, r12               ; extract 8 bits from the first value
+                AND     r3, r1, r12               ; extract 8 bits from the second value
+                SUBS    r4, r2, r3                ; subtraction + update flags
 
-                AND     r11, r0, #0x00FF0000      ; extract the third byte from the first value
-                AND     r10, r1, #0x00FF0000      ; extract the third byte from the second value
-                CMP     r11, r10                  ; compare
-                ITE     HI                        ; if r11 is (HI)gher than r10
-                SUBHI   r3, r11, r10              ; than r3 = r11 - r10
-                SUBLS   r3, r10, r11              ; else r3 = r10 - r11
-                LSR     r3, r3, #16               ; logical shift right by 16 positions
-                ADD     r5, r5, r3                ; add value
+                IT      MI                        ; if the negative flag is one (r4 < 0)
+                SUBMI   r4, r3, r2                ; inverse subtraction
 
-                AND     r11, r0, #0xFF000000      ; extract the fourth byte from the first value
-                AND     r10, r1, #0xFF000000      ; extract the fourth byte from the second value
-                CMP     r11, r10                  ; compare
-                ITE     HI                        ; if r11 is (HI)gher than r10
-                SUBHI   r3, r11, r10              ; than r3 = r11 - r10
-                SUBLS   r3, r10, r11              ; else r3 = r10 - r11
-                LSR     r3, r3, #24               ; logical shift right by 24 positions
-                ADD     r5, r5, r3                ; add value (final result)
+                LSR     r4, r11                   ; shift the partial result if necessary
+                ADD     r11, r11, #8              ; add 8 for the next shift
 
-                STR     r5, [r6, #8]              ; store result
+                ADD     r5, r5, r4                ; sum partial results
 
-                POP     {r0-r12, PC}
+                LSLS    r12, #8                   ; shift mask + update flags
+                BNE     absolute                  ; branch if the zero flag is zero (r12 != 0)
+
+                STR     r5, [r6, #8]              ; store the result at the address pointed by r6 + 8 bytes
+
+                POP     {r0-r5, r11-r12, PC}
                 ENDP
 
 

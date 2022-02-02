@@ -119,27 +119,26 @@ CRP_Key         DCD     0xFFFFFFFF
 
                 AREA    |.text|, CODE, READONLY
 
+V0              EQU     0x7A30458D
+V1              EQU     0xC3159EAA
 
 ; Reset Handler
 
 Reset_Handler   PROC
                 EXPORT  Reset_Handler             [WEAK]
 
-                ;#0x7A30458D
-                MOV     r0, #0x458D               ; write 0x458D to R0[15:0]
-                MOVT    r0, #0x7A30               ; write 0x7A30 to R0[31:16]
-
-                ;#0xC3159EAA
-                MOV     r1, #0x9EAA               ; write 0x9EAA to R1[15:0]
-                MOVT    r1, #0xC315               ; write 0xC315 to R1[31:16]
+                LDR     r0, =V0                   ; load 0x7A30458D
+                LDR     r1, =V1                   ; load 0xC3159EAA
 
                 PUSH    {r0, r1}
                 BL      mySMUAD
-                POP     {r6}
+                POP     {r6}                      ; remove garbage from the stack
+                POP     {r6}                      ; pop result
 
                 PUSH    {r0, r1}
                 BL      mySMUSD
-                POP     {r7}
+                POP     {r7}                      ; remove garbage from the stack
+                POP     {r7}                      ; pop result
 
                 NOP
                 NOP
@@ -149,61 +148,46 @@ stop            B       stop
                 ENDP
 
 mySMUAD         PROC
-                PUSH    {r0-r12, LR}
-                LDR     r0, [SP, #56]             ; load r0 from the stack pointer
-                LDR     r1, [SP, #60]             ; load r1 from the stack pointer
+                PUSH    {r0-r5, LR}
+                
+                LDR     r0, [SP, #28]             ; load r0 from the stack pointer
+                LDR     r1, [SP, #32]             ; load r1 from the stack pointer
+                
                 BL      mySMU
-                ADD     r6, r2, r3
-                STR     r6, [SP, #56]             ; store r6 in the stack pointer
-                POP     {r0-r12, PC}
+                ADD     r5, r4, r5                ; SMUAD
+                
+                STR     r5, [SP, #32]             ; store r6 in the stack pointer
+                
+                POP     {r0-r5, PC}
                 ENDP
 
 mySMUSD         PROC
-                PUSH    {r0-r12, LR}
-                LDR     r0, [SP, #56]             ; load r0 from the stack pointer
-                LDR     r1, [SP, #60]             ; load r1 from the stack pointer
+                PUSH    {r0-r5, LR}
+
+                LDR     r0, [SP, #28]             ; load r0 from the stack pointer
+                LDR     r1, [SP, #32]             ; load r1 from the stack pointer
+                
                 BL      mySMU
-                SUB     r6, r2, r3
-                STR     r6, [SP, #56]             ; store r6 in the stack pointer
-                POP     {r0-r12, PC}
+                SUB     r5, r4, r5                ; SMUSD
+                
+                STR     r5, [SP, #32]             ; store r6 in the stack pointer
+                
+                POP     {r0-r5, PC}
                 ENDP
 
 mySMU           PROC
                 PUSH    {LR}
 
-                AND     r11, r0, #0x000000FF      ; extract the lower halfword (lower) from the first value
-                AND     r10, r0, #0x0000FF00      ; extract the lower halfword (higher) from the first value
-                ORR     r11, r11, r10             ; merge lower halfword
-                AND     r10, r11, #0x00008000     ; extract the sign bit from the first lower halfword
-                CMP     r10, #0x00008000          ; compare
-                BNE     low_half_first            ; branch if positive
-                ORR     r11, r11, #0x00FF0000     ; extend sign (lower) if negative
-                ORR     r11, r11, #0xFF000000     ; extend sign (higher) if negative
+                LSL     r2, r0, #16             ; logical shift to remove LSBs
+                LSL     r3, r1, #16             ; logical shift to remove LSBs
+                
+                ASR     r2, r2, #16             ; arithmetic shift to extend sign
+                ASR     r3, r3, #16             ; arithmetic shift to extend sign
+                MUL     r4, r2, r3              ; lower halfwords multiplication
 
-low_half_first  
-                AND     r12, r1, #0x000000FF      ; extract the lower halfword (lower) from the second value
-                AND     r10, r1, #0x0000FF00      ; extract the lower halfword (higher) from the second value
-                ORR     r12, r12, r10             ; merge lower halfword
-                AND     r10, r12, #0x00008000     ; extract the sign bit from the second lower halfword
-                CMP     r10, #0x00008000          ; compare
-                BNE     low_half_second           ; branch if positive
-                ORR     r12, r12, #0x00FF0000     ; extend sign (lower) if negative
-                ORR     r12, r12, #0xFF000000     ; extend sign (higher) if negative
-
-low_half_second 
-                MUL     r2, r11, r12              ; moltiplication of lower halfwords
-
-                AND     r11, r0, #0x00FF0000      ; extract the higher halfword (lower) from the first value
-                AND     r10, r0, #0xFF000000      ; extract the higher halfword (higher) from the first value
-                ORR     r11, r11, r10             ; merge higher halfword
-                ASR     r11, r11, #16             ; arithmetic shift right by 16 bit
-
-                AND     r12, r1, #0x00FF0000      ; extract the higher halfword (lower) from the second value
-                AND     r10, r1, #0xFF000000      ; extract the higher halfword (higher) from the second value
-                ORR     r12, r12, r10             ; merge higher halfword
-                ASR     r12, r12, #16             ; arithmetic shift right by 16 bit
-
-                MUL     r3, r11, r12              ; moltiplication of higher halfwords
+                ASR     r2, r0, #16             ; arithmetic shift to extend sign
+                ASR     r3, r1, #16             ; arithmetic shift to extend sign
+                MUL     r5, r2, r3              ; higher halfwords multiplication
 
                 POP     {PC}
                 ENDP
