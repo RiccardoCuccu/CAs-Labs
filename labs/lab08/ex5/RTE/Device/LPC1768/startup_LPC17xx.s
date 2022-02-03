@@ -132,29 +132,20 @@ stop            B       stop
                 ENDP
 
 myUADD8         PROC
-                PUSH    {r4-r11, LR}
+                PUSH    {LR}
                 EXPORT  myUADD8
+                
+                AND     r2, r0, #0x00FF00FF     ; extract the first and third bytes of the first value
+                ADD     r2, r1, r2              ; sum with the second value
+                AND     r2, r2, #0x00FF00FF     ; extract the first and third bytes of the result
+                
+                AND     r3, r0, #0xFF00FF00     ; extract the second and fourth bytes of the first value
+                ADD     r3, r1, r3              ; sum with the second value
+                AND     r3, r3, #0xFF00FF00     ; extract the second and fourth bytes of the result
+                
+                ADD     r0, r3, r2              ; sum of the partial results (no risk of overflow)
 
-                AND     r10, r0, #0x000000FF      ; extract the first byte from the first value
-                ADD     r10, r10, r1              ; add it with the second value
-                AND     r4, r10, #0x000000FF      ; save the partial result
-
-                AND     r10, r0, #0x0000FF00      ; extract the second byte from the first value
-                ADD     r10, r10, r1              ; add it with the second value
-                AND     r11, r10, #0x0000FF00     ; extract the partial result
-                ADD     r4, r4, r11               ; merge partial results
-
-                AND     r10, r0, #0x00FF0000      ; extract the third byte from the first value
-                ADD     r10, r10, r1              ; add it with the second value
-                AND     r11, r10, #0x00FF0000     ; extract the partial result
-                ADD     r4, r4, r11               ; merge partial results
-
-                AND     r10, r0, #0xFF000000      ; extract fourth byte from the first value
-                ADD     r10, r10, r1              ; add it with the second value
-                AND     r11, r10, #0xFF000000     ; extract the partial result
-                ADD     r0, r4, r11               ; merge partial results
-
-                POP     {r4-r11, PC}
+                POP     {PC}
                 ENDP
 
 
