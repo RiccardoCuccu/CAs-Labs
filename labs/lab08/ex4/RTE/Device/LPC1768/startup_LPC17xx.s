@@ -128,8 +128,8 @@ V1              EQU     0xC3159EAA
 Reset_Handler   PROC
                 EXPORT  Reset_Handler             [WEAK]
 
-                LDR     r0, =V0                 ; load 0x7A30458D
-                LDR     r1, =V1                 ; load 0xC3159EAA
+                LDR     r0, =V0                   ; load 0x7A30458D
+                LDR     r1, =V1                   ; load 0xC3159EAA
                 PUSH    {r0, r1}
 
                 MOV     r0, #3                    ; System is now Unpriviledged, Thread and using PSP
@@ -147,13 +147,13 @@ stop            B       stop
 mySMUAD         PROC
                 PUSH    {r0-r12, LR}
 
-                LDR     r0, [SP, #112]            ; load r0 from the stack pointer
-                LDR     r1, [SP, #116]            ; load r1 from the stack pointer
+                LDR     r0, [SP, #112]            ; load 0x7A30458D from the stack pointer
+                LDR     r1, [SP, #116]            ; load 0xC3159EAA from the stack pointer
                 
                 BL      mySMU
                 ADD     r5, r4, r5                ; SMUAD
                 
-                STR     r5, [SP, #112]            ; store r6 in the stack pointer
+                STR     r5, [SP, #112]            ; store r5 in the stack pointer
                 
                 POP     {r0-r12, PC}
                 ENDP
@@ -161,13 +161,13 @@ mySMUAD         PROC
 mySMUSD         PROC
                 PUSH    {r0-r12, LR}
 
-                LDR     r0, [SP, #112]            ; load r0 from the stack pointer
-                LDR     r1, [SP, #116]            ; load r1 from the stack pointer
+                LDR     r0, [SP, #112]            ; load 0x7A30458D from the stack pointer
+                LDR     r1, [SP, #116]            ; load 0xC3159EAA from the stack pointer
                 
                 BL      mySMU
                 SUB     r5, r4, r5                ; SMUSD
                 
-                STR     r5, [SP, #112]            ; store r6 in the stack pointer
+                STR     r5, [SP, #112]            ; store r5 in the stack pointer
                 
                 POP     {r0-r12, PC}
                 ENDP
@@ -175,16 +175,16 @@ mySMUSD         PROC
 mySMU           PROC
                 PUSH    {LR}
 
-                LSL     r2, r0, #16             ; logical shift to remove LSBs
-                LSL     r3, r1, #16             ; logical shift to remove LSBs
+                LSL     r2, r0, #16               ; logical shift to remove LSBs
+                LSL     r3, r1, #16               ; logical shift to remove LSBs
                 
-                ASR     r2, r2, #16             ; arithmetic shift to extend sign
-                ASR     r3, r3, #16             ; arithmetic shift to extend sign
-                MUL     r4, r2, r3              ; lower halfwords multiplication
+                ASR     r2, r2, #16               ; arithmetic shift to extend sign
+                ASR     r3, r3, #16               ; arithmetic shift to extend sign
+                MUL     r4, r2, r3                ; lower halfwords multiplication
 
-                ASR     r2, r0, #16             ; arithmetic shift to extend sign
-                ASR     r3, r1, #16             ; arithmetic shift to extend sign
-                MUL     r5, r2, r3              ; higher halfwords multiplication
+                ASR     r2, r0, #16               ; arithmetic shift to extend sign
+                ASR     r3, r1, #16               ; arithmetic shift to extend sign
+                MUL     r5, r2, r3                ; higher halfwords multiplication
 
                 POP     {PC}
                 ENDP
@@ -218,18 +218,20 @@ UsageFault_Handler\
                 ENDP
 SVC_Handler     PROC
                 EXPORT  SVC_Handler               [WEAK]
-
                 PUSH    {r0-r12, LR}
+                
                 MRS     r1, PSP                   ; copies the special register PSP (Process Stack Pointer) into a register
                 LDR     r0, [r1, #24]             ; get stacked PC (word) from stack 
                 LDRB    r0, [r0, #-2]             ; get immediate (byte) from instruction
+                
                 CMP     r0, #0x3                  ; check the immediate
                 BLEQ    mySMUAD
                 CMP     r0, #0x8                  ; check the immediate
                 BLEQ    mySMUSD
+                
                 LDR     r6, [SP, #56]
+                
                 POP     {r0-r12, PC}
-
                 ENDP
 DebugMon_Handler\
                 PROC
