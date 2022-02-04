@@ -3,5 +3,9 @@ Random execises for the Computer Architectures course of the master degree in Em
 Tested in Keil uVision5.<br/>
 
 ### Exercise 1 - Usage Fault Handler
+Causes of usage fault: branch target address to PC with LSB equals 0.
+
+### Exercise 2 - Usage Fault Handler
+Causes of usage fault: division by zero.
 
 [//]: # (https://tex-image-link-generator.herokuapp.com/)
