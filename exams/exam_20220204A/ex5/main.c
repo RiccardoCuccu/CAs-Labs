@@ -3,8 +3,8 @@
 #include "led/led.h"
 #include "button/button.h"
 
-int X = 0;                        			/* Global variable                    */
-int k = 0;                        			/* Global variable                    */
+int X = 0;                              /* Global variable                    */
+int k = 0;                              /* Global variable                    */
 
 /*----------------------------------------------------------------------------
   Main Program
@@ -12,8 +12,8 @@ int k = 0;                        			/* Global variable                    */
  
 int main (void)
 {
-		// System initialization
+    // System initialization
     LED_init();                         /* LED Initialization                 */
     BUTTON_init();                      /* BUTTON Initialization              */
-		while (1) {}                        /* Loop forever                       */
+    while (1) {}                        /* Loop forever                       */
 }

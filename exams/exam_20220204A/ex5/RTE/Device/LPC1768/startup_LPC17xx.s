@@ -125,9 +125,9 @@ CRP_Key         DCD     0xFFFFFFFF
 Reset_Handler   PROC
                 EXPORT  Reset_Handler             [WEAK]
                 
-                ;LDR     r0, =2_100110           ; X
-                ;MOV     r1, #6                  ; k
-                ;BL      restoringSquareRoot     ; branch
+                ;LDR     r0, =2_100110             ; X
+                ;MOV     r1, #6                    ; k
+                ;BL      restoringSquareRoot       ; branch
 
                 IMPORT  SystemInit
                 IMPORT  __main
@@ -139,37 +139,37 @@ Reset_Handler   PROC
 
 restoringSquareRoot\
                 PROC
-				EXPORT  restoringSquareRoot		  [WEAK]
+                EXPORT  restoringSquareRoot       [WEAK]
                 PUSH    {r4-r11, LR}
                 
-                LSL     r4, r0, #1              ; r = 2*X
+                LSL     r4, r0, #1                ; r = 2*X
                 
-                EOR     r5, r5                  ; Q = 0
+                EOR     r5, r5                    ; Q = 0
                 
-                MOV     r6, #1                  ; T = 1
-                SUB     r7, r1, #1              ; k-1
-                LSL     r6, r6, r7              ; shift left by k-1 positions
+                MOV     r6, #1                    ; T = 1
+                SUB     r7, r1, #1                ; k-1
+                LSL     r6, r6, r7                ; shift left by k-1 positions
                 
-                MOV     r7, r6                  ; copy of 2^(-1)
+                MOV     r7, r6                    ; copy of 2^(-1)
 
-                MOV     r8, r1                  ; copy of k
+                MOV     r8, r1                    ; copy of k
 
 squareRoot      CMP     r4, r6
-                BLO     skip                    ; jump if strictly lower
+                BLO     skip                      ; jump if strictly lower
 
-                SUB     r4, r4, r6              ; r = r – T
-                ADD     r5, r5, r7              ; Q = Q + 2^(-i)
+                SUB     r4, r4, r6                ; r = r – T
+                ADD     r5, r5, r7                ; Q = Q + 2^(-i)
 
-skip            LSR     r7, r7, #1              ; compute 2^[-(i + 1)]
-                LSL     r6, r5, #1              ; T = 2*Q
-                ADD     r6, r6, r7              ; T = 2*Q + 2^[-(i + 1)]
+skip            LSR     r7, r7, #1                ; compute 2^[-(i + 1)]
+                LSL     r6, r5, #1                ; T = 2*Q
+                ADD     r6, r6, r7                ; T = 2*Q + 2^[-(i + 1)]
                 
-                LSL     r4, r4, #1              ; r = 2*r
+                LSL     r4, r4, #1                ; r = 2*r
                 
-                SUBS    r8, #1                  ; decrement counter
+                SUBS    r8, #1                    ; decrement counter
                 BNE     squareRoot
                 
-                MOV     r0, r5                  ; return Q
+                MOV     r0, r5                    ; return Q
 
                 POP     {r4-r11, PC}    
                 ENDP
