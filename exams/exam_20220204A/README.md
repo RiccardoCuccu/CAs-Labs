@@ -58,12 +58,12 @@ Write the `restoringSquareRoot` subroutine in ARM assembly language, which retur
 
 The subroutine computes the square root Q following the "restoring" algorithm:
 ```
-1. Initialization: r = 2 * X, Q = 0, T = 2-1
+1. Initialization: r = 2 * X, Q = 0, T = 2^(-1)
 2. for i = 1 to k:
 3.       if r >= T:
 4.             r = r – T
-5.             Q = Q + 2-i
-6.       T = 2 * Q + 2-(i + 1)
+5.             Q = Q + 2^(-i)
+6.       T = 2 * Q + 2^[-(i + 1)]
 7.       r = 2 * r
 8. Return Q
 ```
